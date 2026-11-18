@@ -1,0 +1,2200 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Осознанное питание — мини-курс</title>
+
+<style>
+:root{
+  --primary:#4A6B5A;
+  --primary-light:#6B8F7A;
+  --bg:#F9F7F2;
+  --card-bg:#FFFFFF;
+  --text:#2C3E34;
+  --text-light:#5A6E62;
+  --accent:#D4A373;
+  --accent-light:#E9D8C5;
+  --success:#6B8F7A;
+  --warning:#B5835A;
+  --danger:#C97B63;
+  --border-radius:20px;
+  --shadow:0 10px 30px rgba(74,107,90,.08);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{
+  font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;
+  background:var(--bg);
+  color:var(--text);
+  line-height:1.7;
+  padding:20px;
+  min-height:100vh;
+}
+.quest-container{max-width:820px;width:100%;margin:20px auto}
+
+.course-nav{
+  background:rgba(255,255,255,.85);
+  backdrop-filter:blur(8px);
+  border:1px solid rgba(74,107,90,.08);
+  border-radius:18px;
+  padding:14px 16px;
+  box-shadow:var(--shadow);
+  margin-bottom:22px;
+  position:sticky;
+  top:10px;
+  z-index:50;
+}
+.nav-row{display:flex;gap:12px;align-items:center;flex-wrap:wrap}
+.nav-label{font-size:13px;color:var(--text-light);font-weight:600}
+.step-select{
+  flex:1;
+  min-width:220px;
+  border:2px solid #E0DCD5;
+  border-radius:12px;
+  padding:10px 12px;
+  font-family:inherit;
+  color:var(--text);
+  background:white;
+  font-size:14px;
+}
+.step-select:focus{outline:none;border-color:var(--primary)}
+.nav-btn{
+  border:none;
+  background:var(--primary);
+  color:white;
+  border-radius:12px;
+  padding:10px 14px;
+  cursor:pointer;
+  font-weight:700;
+}
+.nav-btn:disabled{opacity:.35;cursor:not-allowed}
+.progress-track{
+  margin-top:12px;
+  height:7px;
+  background:#E0DCD5;
+  border-radius:10px;
+  overflow:hidden;
+}
+.progress-fill{
+  height:100%;
+  width:0%;
+  background:linear-gradient(90deg,var(--primary),var(--accent));
+  transition:width .3s ease;
+}
+
+.card{
+  background:var(--card-bg);
+  border-radius:var(--border-radius);
+  padding:35px 30px;
+  box-shadow:var(--shadow);
+  display:none;
+  animation:fadeIn .45s ease;
+  border:1px solid rgba(74,107,90,.05);
+}
+.card.active{display:block}
+@keyframes fadeIn{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
+
+h1{font-size:27px;font-weight:800;margin-bottom:14px;color:var(--primary);line-height:1.25}
+h2{font-size:20px;font-weight:700;margin:25px 0 12px;color:var(--primary)}
+h3{font-size:17px;font-weight:700;margin:18px 0 9px;color:var(--text)}
+p{margin-bottom:15px;color:var(--text);font-size:16px}
+.subtitle{color:var(--text-light);font-size:15px;margin-bottom:24px;font-style:italic}
+.tag{
+  display:inline-block;
+  background:var(--primary-light);
+  color:white;
+  font-size:12px;
+  padding:4px 12px;
+  border-radius:20px;
+  margin-bottom:13px;
+  font-weight:700;
+  letter-spacing:.3px;
+}
+ul,ol{margin:14px 0 20px 25px}
+li{margin-bottom:9px;font-size:15px;color:var(--text)}
+li strong{color:var(--primary)}
+
+.highlight-box{
+  background:#F0F5F2;
+  border-left:4px solid var(--primary-light);
+  padding:18px 20px;
+  border-radius:0 12px 12px 0;
+  margin:20px 0;
+}
+.highlight-box p{margin-bottom:8px;font-size:15px}
+.highlight-box p:last-child{margin-bottom:0}
+.accent-box{
+  background:#FDF8F3;
+  border:1px solid var(--accent-light);
+  padding:18px 20px;
+  border-radius:12px;
+  margin:20px 0;
+}
+.accent-box p{font-size:15px;margin-bottom:8px}
+.accent-box p:last-child{margin-bottom:0}
+
+.btn{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:8px;
+  background:var(--primary);
+  color:white;
+  border:none;
+  padding:14px 30px;
+  border-radius:50px;
+  font-size:16px;
+  font-weight:700;
+  cursor:pointer;
+  transition:all .25s ease;
+  text-decoration:none;
+  margin-top:10px;
+  font-family:inherit;
+}
+.btn:hover{background:#3D5A4C;transform:translateY(-2px);box-shadow:0 6px 20px rgba(74,107,90,.25)}
+.btn-secondary{background:transparent;color:var(--primary);border:2px solid var(--primary);padding:12px 26px}
+.btn-secondary:hover{background:var(--primary);color:white}
+.btn-ghost{background:transparent;color:var(--text-light);border:1px dashed #C5BFB5;padding:10px 22px;font-size:14px}
+.btn-ghost:hover{background:#F8F6F2;color:var(--text);border-style:solid}
+.btn-group{display:flex;gap:14px;flex-wrap:wrap;margin-top:25px;align-items:center}
+
+.illustration-block{
+  width:100%;
+  border-radius:16px;
+  overflow:hidden;
+  margin:20px 0 25px;
+  box-shadow:0 8px 20px rgba(74,107,90,.1);
+  position:relative;
+  background:#F0F5F2;
+}
+.illustration-block svg{width:100%;height:200px;display:block}
+.illustration-caption{
+  position:absolute;
+  bottom:0;left:0;right:0;
+  background:linear-gradient(to top,rgba(44,62,52,.86),transparent);
+  color:white;
+  padding:30px 15px 12px;
+  font-size:13px;
+  font-style:italic;
+  text-align:center;
+}
+
+#step0{
+  padding:0;
+  overflow:hidden;
+  background:linear-gradient(160deg,#F3F7F4 0%,#FFFFFF 55%,#FBF5EC 100%);
+}
+.welcome-hero{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  padding:40px 30px 32px;
+  text-align:center;
+}
+.hero-badge{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  background:rgba(107,143,122,.12);
+  color:var(--primary);
+  font-size:12px;
+  font-weight:800;
+  letter-spacing:.8px;
+  text-transform:uppercase;
+  padding:7px 16px;
+  border-radius:30px;
+  margin-bottom:20px;
+}
+.hero-badge .dot{
+  width:8px;height:8px;border-radius:50%;
+  background:var(--primary-light);
+  animation:pulse 2s infinite;
+}
+@keyframes pulse{
+  0%,100%{box-shadow:0 0 0 0 rgba(107,143,122,.5)}
+  50%{box-shadow:0 0 0 6px rgba(107,143,122,0)}
+}
+.plate-wrap{
+  width:270px;height:270px;
+  margin:8px auto 22px;
+  position:relative;
+  animation:plateIn .9s cubic-bezier(.22,1,.36,1);
+}
+@keyframes plateIn{from{opacity:0;transform:scale(.85) rotate(-8deg)}to{opacity:1;transform:scale(1) rotate(0)}}
+.plate-wrap svg{width:100%;height:100%;display:block}
+.plate-glow{
+  position:absolute;inset:-18px;
+  background:radial-gradient(circle,rgba(212,163,115,.18) 0%,transparent 70%);
+  border-radius:50%;
+  z-index:-1;
+}
+.hero-title{
+  font-size:35px;
+  font-weight:900;
+  line-height:1.16;
+  color:var(--primary);
+  letter-spacing:-.5px;
+  margin-bottom:12px;
+}
+.hero-title .soft{color:var(--accent)}
+.hero-subtitle{
+  font-size:17px;
+  color:var(--text-light);
+  max-width:500px;
+  margin:0 auto 24px;
+  line-height:1.65;
+}
+.name-input-block{
+  background:rgba(255,255,255,.85);
+  border:1px solid rgba(74,107,90,.15);
+  border-radius:16px;
+  padding:20px;
+  margin:8px 0 24px;
+  width:100%;
+  max-width:430px;
+  backdrop-filter:blur(6px);
+}
+.name-input-block label{
+  display:block;
+  font-size:14px;
+  color:var(--text-light);
+  margin-bottom:12px;
+  font-weight:600;
+}
+.name-input-wrapper{
+  display:flex;
+  flex-direction:column;
+  gap:12px;
+  align-items:stretch;
+}
+.name-input{
+  width:100%;
+  padding:12px 16px;
+  border:2px solid #E0DCD5;
+  border-radius:12px;
+  font-size:16px;
+  font-family:inherit;
+  background:white;
+  color:var(--text);
+}
+.name-input:focus{outline:none;border-color:var(--primary);box-shadow:0 0 0 3px rgba(74,107,90,.1)}
+.name-input::placeholder{color:#B5B0A5}
+.name-save-btn{
+  padding:12px 20px;
+  background:var(--primary);
+  color:white;
+  border:none;
+  border-radius:12px;
+  font-size:15px;
+  font-weight:700;
+  cursor:pointer;
+  margin-top:4px;
+}
+.name-saved-hint{
+  display:none;
+  margin-top:12px;
+  font-size:13px;
+  color:var(--success);
+  align-items:center;
+  gap:6px;
+  justify-content: center;
+}
+.name-saved-hint.show{display:flex}
+.welcome-features{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:12px;
+  width:100%;
+  margin:6px 0 28px;
+}
+.feature-chip{
+  background:rgba(255,255,255,.75);
+  border:1px solid rgba(74,107,90,.10);
+  border-radius:14px;
+  padding:14px 10px;
+  font-size:13px;
+  color:var(--text);
+}
+.feature-chip .fc-ico{font-size:22px;display:block;margin-bottom:6px}
+.btn-hero{
+  background:var(--primary);
+  color:white;
+  border:none;
+  padding:16px 44px;
+  border-radius:50px;
+  font-size:17px;
+  font-weight:800;
+  cursor:pointer;
+  box-shadow:0 8px 24px rgba(74,107,90,.25);
+}
+.btn-hero:hover{background:#3D5A4C;transform:translateY(-2px)}
+
+.doctor-note{
+  background:#F0F5F2;
+  border-left:4px solid var(--primary);
+  padding:20px;
+  border-radius:0 12px 12px 0;
+  margin:25px 0;
+  display:flex;
+  gap:15px;
+  align-items:flex-start;
+}
+.doctor-note .ico{font-size:28px;flex-shrink:0;margin-top:2px}
+.doctor-note p{font-size:15px;margin-bottom:8px}
+
+.principles-grid{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:12px;
+  margin:25px 0;
+}
+.principle-card{
+  background:white;
+  border:1px solid rgba(74,107,90,.10);
+  border-radius:14px;
+  padding:16px;
+  transition:all .25s ease;
+}
+.principle-card:hover{border-color:var(--primary-light);transform:translateY(-2px);box-shadow:0 6px 16px rgba(74,107,90,.08)}
+.pc-num{
+  display:inline-block;
+  background:var(--primary);
+  color:white;
+  width:26px;height:26px;
+  border-radius:50%;
+  font-size:13px;
+  font-weight:800;
+  text-align:center;
+  line-height:26px;
+  margin-bottom:8px;
+}
+.principle-card h3{font-size:15px;margin:0 0 6px;color:var(--primary)}
+.principle-card p{font-size:13.5px;line-height:1.5;margin:0;color:var(--text-light)}
+
+.satter-block,.obstacles-block,.hand-method,.habits-block,.passport-block,.bonuses-block,.feedback-block{
+  border-radius:16px;
+  padding:25px;
+  margin:25px 0;
+}
+.satter-block{
+  background:linear-gradient(135deg,#F0F5F2 0%,#FDF8F3 100%);
+  border:1px solid rgba(74,107,90,.10);
+}
+.satter-list{list-style:none;margin:0;padding:0}
+.satter-list li{
+  padding:12px 15px 12px 42px;
+  background:rgba(255,255,255,.75);
+  border-radius:10px;
+  margin-bottom:8px;
+  position:relative;
+  font-size:14.5px;
+  line-height:1.55;
+}
+.satter-list li:before{
+  content:'✓';
+  position:absolute;
+  left:15px;top:12px;
+  color:var(--primary);
+  font-weight:900;
+}
+
+.quiz-question{margin-bottom:24px;padding-bottom:19px;border-bottom:1px solid #F0EBE4}
+.quiz-question:last-child{border-bottom:none}
+.quiz-question p{font-weight:700;margin-bottom:14px;font-size:16px}
+.quiz-options label{
+  display:block;
+  padding:12px 16px;
+  margin-bottom:8px;
+  background:#FAFAF8;
+  border-radius:12px;
+  cursor:pointer;
+  transition:all .2s ease;
+  border:1px solid transparent;
+  font-size:15px;
+}
+.quiz-options label:hover{background:#F0F5F2;border-color:var(--primary-light)}
+.quiz-options input[type=radio]{
+  appearance:none;
+  width:18px;height:18px;
+  border:2px solid #C5BFB5;
+  border-radius:50%;
+  margin-right:12px;
+  position:relative;
+  top:3px;
+}
+.quiz-options input[type=radio]:checked{
+  border-color:var(--primary);
+  background:var(--primary);
+  box-shadow:inset 0 0 0 3px white;
+}
+.quiz-result,.rpp-warning,.rpp-ok{
+  margin-top:22px;
+  padding:20px;
+  border-radius:12px;
+  display:none;
+}
+.quiz-result.show,.rpp-warning.show,.rpp-ok.show{display:block}
+.rpp-screening{
+  background:#FFF8F0;
+  border:1px solid var(--accent-light);
+  border-radius:16px;
+  padding:25px;
+  margin:25px 0;
+}
+.rpp-screening h2{display:flex;align-items:center;gap:10px;margin-top:0;color:var(--warning)}
+.rpp-intro{
+  font-size:14px;
+  color:var(--text-light);
+  margin-bottom:20px;
+  padding:12px 15px;
+  background:rgba(212,163,115,.08);
+  border-radius:10px;
+}
+.rpp-warning{background:#FDF2EF;border-left:4px solid var(--danger)}
+.rpp-warning h3{color:var(--danger);margin-top:0}
+.rpp-ok{background:#F0F5F2;border-left:4px solid var(--success)}
+.rpp-ok h3{color:var(--success);margin-top:0}
+
+.obstacles-block{
+  background:#FDF8F3;
+  border:1px solid var(--accent-light);
+}
+.obstacle-item{
+  background:white;
+  border-radius:12px;
+  padding:18px 20px;
+  margin:15px 0;
+  border-left:3px solid var(--accent);
+}
+.obstacle-item h3{margin-top:0;color:var(--primary);font-size:16px}
+.obstacle-item p,.obstacle-item li{font-size:14.5px}
+
+.hand-method{
+  background:white;
+  border:1px solid rgba(74,107,90,.10);
+}
+.hand-row{
+  display:flex;
+  align-items:center;
+  padding:12px 16px;
+  border-radius:10px;
+  margin-bottom:8px;
+  gap:14px;
+  font-size:15px;
+}
+.hand-row:nth-child(odd){background:#F8F6F2}
+.hr-icon{font-size:24px;flex-shrink:0;width:36px;text-align:center}
+.hr-name{font-weight:700;color:var(--primary);flex:1}
+.hr-size{color:var(--text-light);font-size:14px}
+.combo-steps{
+  background:#F0F5F2;
+  border-radius:12px;
+  padding:20px;
+  margin:20px 0;
+}
+.combo-step{display:flex;gap:14px;margin-bottom:15px;align-items:flex-start}
+.combo-step:last-child{margin-bottom:0}
+.cs-num{
+  flex-shrink:0;
+  width:34px;height:34px;
+  background:var(--primary);
+  color:white;
+  border-radius:50%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-weight:800;
+  font-size:14px;
+}
+.cs-text{flex:1;font-size:14.8px;line-height:1.6}
+
+.health-vs-beauty{
+  background:linear-gradient(135deg,#FDF8F3 0%,#F0F5F2 100%);
+  border-radius:16px;
+  padding:25px;
+  margin:25px 0;
+  border:1px solid rgba(212,163,115,.2);
+}
+.hvb-compare{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:15px;
+  margin:20px 0;
+}
+.hvb-col{padding:18px;border-radius:12px;font-size:14px}
+.hvb-col.trap{background:#FBF2EF;border-left:3px solid var(--danger)}
+.hvb-col.goal{background:#F0F5F2;border-left:3px solid var(--success)}
+.hvb-col h3{margin-top:0}
+.hvb-col.trap h3{color:var(--danger)}
+.hvb-col.goal h3{color:var(--success)}
+.hvb-conclusion{
+  background:white;
+  border-radius:12px;
+  padding:16px 18px;
+  font-size:15px;
+  line-height:1.6;
+  margin-top:15px;
+  border-left:4px solid var(--primary);
+}
+
+.diary-example{
+  background:#F8F6F2;
+  border-radius:12px;
+  padding:20px;
+  margin:15px 0 10px;
+  font-family:'Courier New',monospace;
+  font-size:14px;
+  line-height:1.8;
+  border:1px dashed #D4C9BC;
+  position:relative;
+}
+.diary-example .label{color:var(--primary);font-weight:bold}
+.copy-btn{
+  position:absolute;
+  top:10px;right:10px;
+  background:white;
+  border:1px solid var(--primary-light);
+  color:var(--primary);
+  padding:6px 12px;
+  border-radius:8px;
+  font-size:12px;
+  cursor:pointer;
+}
+.copy-btn:hover{background:var(--primary);color:white}
+.hunger-scale{
+  margin:25px 0 10px;
+  border-radius:16px;
+  overflow:hidden;
+  border:1px solid #E5DED2;
+  background:white;
+}
+.hunger-scale-header{
+  background:var(--primary);
+  color:white;
+  padding:12px 18px;
+  font-weight:800;
+  font-size:15px;
+}
+.hunger-row{
+  display:flex;
+  align-items:stretch;
+  border-bottom:1px solid #F2EEE7;
+  font-size:14px;
+  min-height:44px;
+}
+.hunger-row:last-child{border-bottom:none}
+.hunger-num{
+  width:44px;
+  flex-shrink:0;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-weight:900;
+  font-size:16px;
+  color:white;
+}
+.hunger-text{
+  padding:8px 14px;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  flex-grow:1;
+}
+.ht-title{font-weight:700;font-size:14px}
+.ht-desc{font-size:12.5px;color:var(--text-light);line-height:1.4;margin-top:2px}
+.zone-deepred .hunger-num{background:#A65B45}.zone-deepred{background:#F8EEEA}
+.zone-red .hunger-num{background:#C97B63}.zone-red{background:#FBF2EF}
+.zone-orange .hunger-num{background:#D4A373}.zone-orange{background:#FDF8F3}
+.zone-green .hunger-num{background:#6B8F7A}.zone-green{background:#F2F8F3}
+.zone-yellow .hunger-num{background:#C9A84C}.zone-yellow{background:#FBF8ED}
+.hunger-marker{
+  display:inline-block;
+  font-size:11px;
+  font-weight:800;
+  padding:2px 8px;
+  border-radius:10px;
+  margin-left:8px;
+  color:white;
+  white-space:nowrap;
+}
+.marker-start{background:#6B8F7A}
+.marker-stop{background:#C9A84C}
+.marker-avoid{background:#C97B63}
+.scale-legend{
+  display:flex;
+  flex-wrap:wrap;
+  gap:10px 18px;
+  padding:14px 18px;
+  background:#F8F6F2;
+  border-top:1px solid #E5DED2;
+  font-size:13px;
+}
+.scale-legend span{display:inline-flex;align-items:center;gap:6px}
+.legend-dot{width:12px;height:12px;border-radius:50%;display:inline-block}
+
+.passport-block{
+  background:linear-gradient(135deg,#FFFFFF 0%,#F0F5F2 100%);
+  border:2px solid var(--primary-light);
+  position:relative;
+  overflow:hidden;
+}
+.passport-block:before{
+  content:'';
+  position:absolute;
+  top:-50px;right:-50px;
+  width:150px;height:150px;
+  background:radial-gradient(circle,rgba(107,143,122,.15) 0%,transparent 70%);
+  border-radius:50%;
+}
+.passport-header{
+  display:flex;
+  align-items:center;
+  gap:15px;
+  margin-bottom:20px;
+  padding-bottom:18px;
+  border-bottom:2px dashed var(--accent-light);
+}
+.passport-ico{font-size:42px;flex-shrink:0}
+.passport-title{font-size:22px;font-weight:900;color:var(--primary);margin:0;line-height:1.2}
+.passport-subtitle{font-size:13px;color:var(--text-light);margin-top:4px}
+.passport-section{margin-bottom:20px}
+.passport-section-title{
+  font-size:14px;
+  font-weight:800;
+  color:var(--primary);
+  text-transform:uppercase;
+  letter-spacing:.5px;
+  margin-bottom:10px;
+}
+.passport-section-content{
+  background:white;
+  border-radius:12px;
+  padding:15px 18px;
+  font-size:14.5px;
+  line-height:1.6;
+}
+.passport-section-content ul{margin:0;padding-left:20px}
+.passport-focus{
+  background:#F0F5F2;
+  border-left:4px solid var(--primary);
+  padding:14px 18px;
+  border-radius:0 12px 12px 0;
+  font-size:15px;
+  font-weight:700;
+  color:var(--primary);
+}
+
+.habits-block{
+  background:#FDF8F3;
+  border:1px solid var(--accent-light);
+}
+.habit-tips{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:10px;
+  margin-top:15px;
+}
+.habit-tip{
+  background:white;
+  padding:14px 16px;
+  border-radius:12px;
+  font-size:14px;
+  line-height:1.5;
+  display:flex;
+  gap:10px;
+  align-items:flex-start;
+}
+.habit-tip p{margin:0;font-size:14px}
+.ht-ico{font-size:20px;flex-shrink:0}
+
+.bonuses-block{
+  background:linear-gradient(135deg,#FDF8F3 0%,#F0F5F2 100%);
+  border:1px solid var(--accent-light);
+}
+.bonus-cards{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:12px;
+}
+.bonus-card{
+  background:white;
+  border:1px solid rgba(74,107,90,.10);
+  border-radius:14px;
+  padding:20px 16px;
+  cursor:pointer;
+  transition:all .3s ease;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  text-align:center;
+  gap:10px;
+}
+.bonus-card:hover{border-color:var(--primary);transform:translateY(-4px);box-shadow:0 10px 25px rgba(74,107,90,.12)}
+.bonus-ico{font-size:36px}
+.bonus-title{font-size:14px;font-weight:800;color:var(--primary);line-height:1.3}
+.bonus-desc{font-size:12.5px;color:var(--text-light);line-height:1.4}
+.bonus-btn{
+  margin-top:6px;
+  font-size:12px;
+  font-weight:800;
+  color:white;
+  background:var(--primary);
+  padding:6px 14px;
+  border-radius:20px;
+}
+.feedback-block{
+  background:white;
+  border:2px dashed var(--accent);
+  text-align:center;
+}
+.btn-feedback{
+  display:inline-flex;
+  align-items:center;
+  gap:10px;
+  background:var(--accent);
+  color:white;
+  padding:14px 32px;
+  border-radius:50px;
+  text-decoration:none;
+  font-size:16px;
+  font-weight:800;
+}
+.btn-feedback:hover{background:#B5835A;transform:translateY(-2px)}
+
+.sources-toggle{
+  background:transparent;
+  border:1px solid var(--primary-light);
+  color:var(--primary);
+  padding:10px 20px;
+  border-radius:50px;
+  font-size:14px;
+  font-weight:700;
+  cursor:pointer;
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  margin-top:20px;
+}
+.sources-toggle:hover{background:var(--primary);color:white}
+.sources-toggle .toggle-icon{transition:transform .3s ease}
+.sources-toggle.active .toggle-icon{transform:rotate(180deg)}
+.sources{
+  margin-top:20px;
+  padding-top:20px;
+  border-top:1px solid #E8E2DA;
+  font-size:13px;
+  color:var(--text-light);
+  display:none;
+}
+.sources.show{display:block}
+.sources li{font-size:13px;margin-bottom:8px;color:var(--text-light)}
+.source-link{color:var(--primary-light);text-decoration:none;border-bottom:1px dotted var(--primary-light)}
+.source-link:hover{color:var(--primary);border-bottom-style:solid}
+
+.final-message{text-align:center;padding:20px 0}
+.final-message .emoji-icon{font-size:56px}
+.btn-celebrate{
+  background:linear-gradient(135deg,#D4A373 0%,#B5835A 100%);
+  color:white;
+  border:none;
+  padding:20px 48px;
+  border-radius:50px;
+  font-size:18px;
+  font-weight:900;
+  cursor:pointer;
+  box-shadow:0 10px 30px rgba(212,163,115,.4);
+  display:inline-flex;
+  align-items:center;
+  gap:12px;
+  margin:30px 0 10px;
+  animation:celebratePulse 2s ease-in-out infinite;
+}
+@keyframes celebratePulse{
+  0%,100%{box-shadow:0 10px 30px rgba(212,163,115,.4)}
+  50%{box-shadow:0 10px 40px rgba(212,163,115,.7)}
+}
+.celebration-modal{
+  display:none;
+  position:fixed;
+  inset:0;
+  background:rgba(44,62,52,.95);
+  z-index:2000;
+  align-items:center;
+  justify-content:center;
+  padding:20px;
+}
+.celebration-modal.show{display:flex}
+.celebration-content{
+  background:white;
+  border-radius:24px;
+  padding:40px 35px;
+  max-width:620px;
+  width:100%;
+  text-align:center;
+  box-shadow:0 20px 60px rgba(0,0,0,.3);
+  animation:celebrationPop .5s cubic-bezier(.68,-.55,.265,1.55);
+  max-height:90vh;
+  overflow-y:auto;
+}
+@keyframes celebrationPop{from{transform:scale(.4) rotate(-8deg);opacity:0}to{transform:scale(1) rotate(0);opacity:1}}
+.celebration-emoji{font-size:80px;margin-bottom:15px;animation:bounce 1.5s ease infinite;display:inline-block}
+@keyframes bounce{0%,100%{transform:translateY(0)}50%{transform:translateY(-16px)}}
+.celebration-title{font-size:30px;font-weight:900;color:var(--primary);margin-bottom:15px}
+.celebration-text{text-align:left;font-size:15px;line-height:1.7;margin-bottom:25px}
+.celebration-text ul{list-style:none;margin:15px 0;padding:0}
+.celebration-text li{padding:9px 0 9px 35px;position:relative;border-bottom:1px solid #F0EBE4}
+.celebration-text li:before{content:'✓';position:absolute;left:6px;top:9px;color:var(--success);font-weight:900;font-size:20px}
+.celebration-close{
+  background:var(--primary);
+  color:white;
+  border:none;
+  padding:14px 40px;
+  border-radius:50px;
+  font-size:16px;
+  font-weight:800;
+  cursor:pointer;
+  margin:5px;
+}
+.celebration-close.cert-btn{background:var(--accent)}
+.celebration-close.cert-btn:hover{background:#B5835A}
+.confetti{position:fixed;width:10px;height:10px;z-index:2002;pointer-events:none}
+.toast{
+  position:fixed;
+  bottom:30px;left:50%;
+  transform:translateX(-50%) translateY(100px);
+  background:var(--primary);
+  color:white;
+  padding:12px 24px;
+  border-radius:50px;
+  font-size:14px;
+  font-weight:700;
+  box-shadow:0 10px 30px rgba(0,0,0,.2);
+  opacity:0;
+  transition:all .4s cubic-bezier(.175,.885,.32,1.275);
+  z-index:1000;
+}
+.toast.show{transform:translateX(-50%) translateY(0);opacity:1}
+
+@media(max-width:650px){
+  body{padding:12px}
+  .quest-container{margin:10px auto}
+  .card{padding:25px 20px}
+  #step0{padding:0}
+  .welcome-hero{padding:30px 20px 24px}
+  h1{font-size:22px}
+  h2{font-size:18px}
+  .hero-title{font-size:28px}
+  .hero-subtitle{font-size:15px}
+  .plate-wrap{width:215px;height:215px}
+  .welcome-features,.principles-grid,.habit-tips,.bonus-cards,.hvb-compare{grid-template-columns:1fr}
+  .feature-chip{display:flex;align-items:center;gap:10px;text-align:left}
+  .feature-chip .fc-ico{margin-bottom:0}
+  .btn,.btn-hero,.btn-celebrate{width:100%;justify-content:center;text-align:center}
+  .btn-group{flex-direction:column}
+  .illustration-block svg{height:160px}
+  .passport-header{flex-direction:column;text-align:center}
+  .course-nav{position:static}
+  .celebration-close{width:100%;margin:5px 0}
+}
+@media print{
+  .course-nav,.btn-group,.sources-toggle,.btn-celebrate{display:none!important}
+}
+</style>
+</head>
+
+<body>
+<div class="quest-container">
+
+  <div class="course-nav" id="courseNav">
+    <div class="nav-row">
+      <span class="nav-label">Навигация:</span>
+      <select class="step-select" id="stepSelect" onchange="goToStep(parseInt(this.value))"></select>
+      <button class="nav-btn" id="prevBtn" onclick="prevStep()">←</button>
+      <button class="nav-btn" id="nextBtn" onclick="nextStep()">→</button>
+    </div>
+    <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+  </div>
+
+  <!-- 0 -->
+  <section class="card active" id="step0">
+    <div class="welcome-hero">
+      <div class="hero-badge"><span class="dot"></span> Мини-курс по осознанному питанию</div>
+
+      <div class="plate-wrap">
+        <div class="plate-glow"></div>
+        <svg viewBox="0 0 280 280" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Тарелка: половина клетчатка, четверть белок, четверть углеводы">
+          <defs>
+            <radialGradient id="plateBg" cx="50%" cy="42%" r="65%">
+              <stop offset="0%" stop-color="#FFFFFF"/>
+              <stop offset="85%" stop-color="#F7F4EE"/>
+              <stop offset="100%" stop-color="#EDE7DC"/>
+            </radialGradient>
+            <linearGradient id="fiberG" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#9CCB86"/><stop offset="100%" stop-color="#6FA35C"/></linearGradient>
+            <linearGradient id="proteinG" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#F4A582"/><stop offset="100%" stop-color="#D97B5A"/></linearGradient>
+            <linearGradient id="carbG" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#E9C46A"/><stop offset="100%" stop-color="#C99A3C"/></linearGradient>
+          </defs>
+          <ellipse cx="140" cy="252" rx="92" ry="11" fill="rgba(74,107,90,0.13)"/>
+          <circle cx="140" cy="140" r="122" fill="#FFFFFF" stroke="#E7E0D4" stroke-width="2"/>
+          <circle cx="140" cy="140" r="106" fill="url(#plateBg)" stroke="#E2DACE" stroke-width="1.5"/>
+          <path d="M140 34 A106 106 0 0 1 140 246 L140 140 Z" fill="url(#fiberG)" opacity="0.35"/>
+          <path d="M140 246 A106 106 0 0 1 34 140 L140 140 Z" fill="url(#proteinG)" opacity="0.35"/>
+          <path d="M34 140 A106 106 0 0 1 140 34 L140 140 Z" fill="url(#carbG)" opacity="0.35"/>
+          <line x1="140" y1="34" x2="140" y2="246" stroke="#FFFFFF" stroke-width="3" stroke-dasharray="6 5" opacity="0.9"/>
+          <line x1="34" y1="140" x2="140" y2="140" stroke="#FFFFFF" stroke-width="3" stroke-dasharray="6 5" opacity="0.9"/>
+          <text x="190" y="145" font-family="Segoe UI, sans-serif" font-size="14" font-weight="700" fill="#4E7A43" text-anchor="middle">КЛЕТЧАТКА</text>
+          <text x="190" y="162" font-family="Segoe UI, sans-serif" font-size="12" fill="#4E7A43" text-anchor="middle">½ тарелки</text>
+          <text x="88" y="195" font-family="Segoe UI, sans-serif" font-size="13" font-weight="700" fill="#B5624A" text-anchor="middle">БЕЛОК</text>
+          <text x="88" y="211" font-family="Segoe UI, sans-serif" font-size="11" fill="#B5624A" text-anchor="middle">¼ тарелки</text>
+          <text x="88" y="95" font-family="Segoe UI, sans-serif" font-size="13" font-weight="700" fill="#8A6A1F" text-anchor="middle">УГЛЕВОДЫ</text>
+          <text x="88" y="111" font-family="Segoe UI, sans-serif" font-size="11" fill="#8A6A1F" text-anchor="middle">¼ тарелки</text>
+          <g transform="translate(180,110)">
+            <circle cx="-8" cy="-4" r="8" fill="#5E9448"/>
+            <circle cx="4" cy="-7" r="7" fill="#6FA35C"/>
+            <circle cx="-2" cy="-13" r="7" fill="#7FB069"/>
+            <rect x="-6" y="2" width="6" height="12" rx="2" fill="#6FA35C"/>
+          </g>
+          <g transform="translate(85,170) rotate(-10)">
+            <path d="M-18 0 C-12 -11,12 -11,18 0 C12 8,-12 8,-18 0 Z" fill="url(#proteinG)"/>
+            <circle cx="10" cy="-2" r="1.5" fill="#8A4A32"/>
+          </g>
+          <g fill="url(#carbG)" transform="translate(85,70)">
+            <ellipse cx="-6" cy="-3" rx="4" ry="2.5" transform="rotate(-20 -6 -3)"/>
+            <ellipse cx="2" cy="-5" rx="4" ry="2.5" transform="rotate(10 2 -5)"/>
+            <ellipse cx="8" cy="-1" rx="4" ry="2.5" transform="rotate(-15 8 -1)"/>
+          </g>
+        </svg>
+      </div>
+
+      <h1 class="hero-title">Осознанное<br><span class="soft">питание</span></h1>
+      <p class="hero-subtitle">Не диета и не запреты. Маленькое путешествие к тому, как вы едите — и что замечаете по пути.</p>
+
+      <div class="name-input-block">
+        <label>👋 Как к вам обращаться?</label>
+        <div class="name-input-wrapper">
+          <input type="text" id="firstNameInput" class="name-input" placeholder="Имя (например, Анна)" maxlength="30">
+          <input type="text" id="lastNameInput" class="name-input" placeholder="Фамилия (например, Иванова)" maxlength="30">
+          <button class="name-save-btn" onclick="saveName()">Сохранить</button>
+        </div>
+        <div class="name-saved-hint" id="nameSavedHint"><span>✓</span><span>Данные сохранены.</span></div>
+      </div>
+
+      <div class="welcome-features">
+        <div class="feature-chip"><span class="fc-ico">🧭</span>16 коротких шагов</div>
+        <div class="feature-chip"><span class="fc-ico">⏱️</span>~20 минут</div>
+        <div class="feature-chip"><span class="fc-ico">🌿</span>Без давления</div>
+      </div>
+
+      <button class="btn-hero" onclick="startJourney()">Начать путешествие →</button>
+    </div>
+  </section>
+
+  <!-- 1 -->
+  <section class="card" id="step1">
+    <span class="tag">Шаг 1 · Открытие</span>
+    <h1>Еда — это не только калории</h1>
+    <p class="subtitle">Небольшое путешествие к тому, как мы едим, а не что мы едим.</p>
+
+    <div class="illustration-block">
+      <svg viewBox="0 0 400 200" xmlns="http://www.w3.org/2000/svg">
+        <defs><linearGradient id="bg1" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#F0F5F2"/><stop offset="100%" stop-color="#E9D8C5"/></linearGradient></defs>
+        <rect width="400" height="200" fill="url(#bg1)"/>
+        <circle cx="120" cy="80" r="35" fill="#D4A373" opacity=".9"/>
+        <path d="M85 120 Q120 155 155 120" fill="#D4A373" opacity=".9"/>
+        <path d="M220 130 Q260 170 300 130" fill="#4A6B5A"/>
+        <ellipse cx="260" cy="130" rx="40" ry="12" fill="#6B8F7A"/>
+        <path d="M240 110 Q235 90 245 80" stroke="#FFF" stroke-width="4" fill="none" stroke-linecap="round" opacity=".7"/>
+        <path d="M260 100 Q255 80 265 70" stroke="#FFF" stroke-width="4" fill="none" stroke-linecap="round" opacity=".7"/>
+        <path d="M280 110 Q275 90 285 80" stroke="#FFF" stroke-width="4" fill="none" stroke-linecap="round" opacity=".7"/>
+      </svg>
+      <div class="illustration-caption">Осознанность начинается с паузы и внимания к моменту</div>
+    </div>
+
+    <p>Скорее всего, вы пробовали разные подходы к питанию: считать калории, исключать продукты, следовать строгим правилам. Возможно, что-то работало, что-то — нет. Но был ли у вас опыт, когда вы просто <strong>замечали</strong>, как едите?</p>
+
+    <div class="highlight-box">
+      <p><strong>Осознанное питание</strong> — это практика внимательного присутствия во время еды. Это не диета и не список запрещённых продуктов. Это навык замечать сигналы тела: голод, насыщение, вкус, текстуру, эмоции — без осуждения и критики.</p>
+    </div>
+
+    <div class="doctor-note">
+      <div class="ico">🩺</div>
+      <div>
+        <p><strong>Записка от врача:</strong> <span class="name-place">здравствуйте</span>, я создал этот материал, потому что в практике часто вижу, как строгие ограничения приводят к срывам. Моя цель — не дать вам новую диету, а помочь восстановить доверие к сигналам собственного тела.</p>
+      </div>
+    </div>
+
+    <div class="btn-group"><button class="btn" onclick="goToStep(2)">Перейти к принципам →</button></div>
+  </section>
+
+  <!-- 2 -->
+  <section class="card" id="step2">
+    <span class="tag">Шаг 2 · Философия</span>
+    <h1>10 принципов интуитивного питания: часть 1</h1>
+    <p class="subtitle">Фундамент, на котором строится вся практика. Прочитайте спокойно, без задачи «сразу внедрить».</p>
+    <div class="principles-grid" id="principlesA"></div>
+    <div class="btn-group"><button class="btn" onclick="goToStep(3)">Продолжить →</button></div>
+  </section>
+
+  <!-- 3 -->
+  <section class="card" id="step3">
+    <span class="tag">Шаг 3 · Философия</span>
+    <h1>10 принципов интуитивного питания: часть 2</h1>
+    <p class="subtitle">Оставшиеся пять принципов.</p>
+    <div class="principles-grid" id="principlesB"></div>
+    <div class="accent-box">
+      <p><strong>Важно:</strong> интуитивное питание — это практика и путь, а не пункт назначения. Мы стремимся не к идеалу, а к гибкому подходу, который даёт ощущение здоровья и спокойствия, а не тревоги и обделённости.</p>
+    </div>
+    <div class="btn-group"><button class="btn" onclick="goToStep(4)">К признакам нормального питания →</button></div>
+  </section>
+
+  <!-- 4 -->
+  <section class="card" id="step4">
+    <span class="tag">Шаг 4 · Нормальное питание</span>
+    <h1>Как выглядит «нормальное питание»</h1>
+    <p class="subtitle">Не идеальное. Не «чистое». А живое, гибкое, человеческое.</p>
+
+    <div class="satter-block">
+      <p class="subtitle">Эти признаки сформулировала Эллин Сэттер — специалист по пищевому поведению и семейному питанию.</p>
+      <ul class="satter-list">
+        <li>Есть, когда голоден, и останавливаться при чувстве комфортной сытости и удовлетворения.</li>
+        <li>Питаться регулярно: например, 2–3 основных приёма пищи и 1–3 перекуса — в зависимости от режима, аппетита и состояния здоровья.</li>
+        <li>Съесть продукт, который хочется, насытиться им и остановиться — не потому что «больше нельзя», а потому что «больше не хочется».</li>
+        <li>Выбирать насыщающие и вкусные продукты, не чувствуя себя преступником.</li>
+        <li>Разрешать себе что-то менее полезное в минуту грусти, радости, злости или просто потому, что вкусно.</li>
+        <li>Не доедать, если на тарелке слишком много еды, а вы уже насытились.</li>
+        <li>Иногда переедать — потому что никто не идеален, а семейные застолья случаются у всех.</li>
+        <li>Иногда не наедаться привычной порцией и идти за добавкой.</li>
+        <li>Доверять своему телу и понимать: ошибки — это тоже нормально. Нормальное питание гибкое и каждый день может немного меняться.</li>
+      </ul>
+    </div>
+
+    <div class="highlight-box">
+      <p>Иногда мы едим в спешке. Иногда — за праздничным столом. Иногда заказываем пиццу и едим её под сериал. Иногда съедаем слишком много торта, а иногда даже не пробуем десерт. Это не провал. Это жизнь.</p>
+    </div>
+
+    <div class="btn-group"><button class="btn" onclick="goToStep(5)">Перейти к вопросам безопасности →</button></div>
+  </section>
+
+  <!-- 5 -->
+  <section class="card" id="step5">
+    <span class="tag">Шаг 5 · Безопасность</span>
+    <h1>Прежде чем идти дальше — важные вопросы</h1>
+    <p class="subtitle">Проверим, нет ли состояний, при которых самостоятельная работа с питанием может быть небезопасной.</p>
+
+    <div class="rpp-screening">
+      <h2>🛡️ Краткий скрининг на расстройства пищевого поведения</h2>
+      <div class="rpp-intro">Это не диагноз. Это способ понять, нужна ли вам дополнительная помощь специалиста до начала самостоятельной практики.</div>
+
+      <form id="rppForm">
+        <div class="quiz-question"><p>1. Довольны ли вы своим режимом питания?</p><div class="quiz-options"><label><input type="radio" name="rpp1" value="0"> Да</label><label><input type="radio" name="rpp1" value="1"> Нет</label></div></div>
+        <div class="quiz-question"><p>2. Вы когда-нибудь ели втайне — от близких, из-за стыда или страха оценки?</p><div class="quiz-options"><label><input type="radio" name="rpp2" value="0"> Нет</label><label><input type="radio" name="rpp2" value="1"> Да</label></div></div>
+        <div class="quiz-question"><p>3. Влияет ли ваш вес на ваше отношение к себе?</p><div class="quiz-options"><label><input type="radio" name="rpp3" value="0"> Нет</label><label><input type="radio" name="rpp3" value="1"> Да</label></div></div>
+        <div class="quiz-question"><p>4. Страдали ли какие-либо члены вашей семьи расстройством пищевого поведения?</p><div class="quiz-options"><label><input type="radio" name="rpp4" value="0"> Нет</label><label><input type="radio" name="rpp4" value="1"> Да</label></div></div>
+        <div class="quiz-question"><p>5. Страдаете ли вы сейчас или страдали когда-либо в прошлом расстройством пищевого поведения?</p><div class="quiz-options"><label><input type="radio" name="rpp5" value="0"> Нет</label><label><input type="radio" name="rpp5" value="1"> Да</label></div></div>
+        <div class="btn-group"><button type="button" class="btn" onclick="checkRPP()">Проверить результат</button></div>
+      </form>
+
+      <div class="rpp-warning" id="rppWarning">
+        <h3>⚠️ Важный сигнал</h3>
+        <p><span class="name-place">здравствуйте</span>, ваши ответы указывают на возможные сложности в отношениях с едой или телом. Это <strong>не диагноз</strong>, но серьёзный повод обратиться к специалисту.</p>
+        <p>В такой ситуации практика осознанного питания без сопровождения может усиливать тревогу, чувство вины или навязчивый контроль.</p>
+        <p>Пожалуйста, обсудите это с врачом или психологом, который работает с пищевым поведением.</p>
+        <div class="btn-group"><button class="btn btn-ghost" onclick="resetRPP()">Пройти снова</button></div>
+      </div>
+
+      <div class="rpp-ok" id="rppOk">
+        <h3>✓ Можно продолжать</h3>
+        <p><span class="name-place">здравствуйте</span>, ваши ответы не выявили выраженных тревожных сигналов. Можно перейти к основному тесту.</p>
+        <div class="btn-group">
+          <button class="btn btn-ghost" onclick="resetRPP()">Пройти снова</button>
+          <button class="btn" onclick="goToStep(6)">Перейти к тесту →</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 6 -->
+  <section class="card" id="step6">
+    <span class="tag">Шаг 6 · Самонаблюдение</span>
+    <h1>Насколько вам может подойти этот подход?</h1>
+    <p class="subtitle">Ответьте честно, опираясь на опыт последнего месяца. Здесь нет правильных или неправильных ответов.</p>
+
+    <form id="quizForm">
+      <div class="quiz-question"><p>1. Как часто вы едите, отвлекаясь на телефон, телевизор или работу?</p><div class="quiz-options"><label><input type="radio" name="q1" value="2"> Почти всегда или очень часто</label><label><input type="radio" name="q1" value="1"> Иногда, зависит от ситуации</label><label><input type="radio" name="q1" value="0"> Редко или почти никогда</label></div></div>
+      <div class="quiz-question"><p>2. Замечаете ли вы момент, когда наелись?</p><div class="quiz-options"><label><input type="radio" name="q2" value="2"> Часто не замечаю или ем «до тарелки»</label><label><input type="radio" name="q2" value="1"> Иногда замечаю, иногда нет</label><label><input type="radio" name="q2" value="0"> Хорошо чувствую насыщение</label></div></div>
+      <div class="quiz-question"><p>3. Бывает ли, что вы едите не из-за голода, а из-за эмоций?</p><div class="quiz-options"><label><input type="radio" name="q3" value="2"> Да, часто</label><label><input type="radio" name="q3" value="1"> Бывает, но не постоянно</label><label><input type="radio" name="q3" value="0"> Редко связываю еду с эмоциями</label></div></div>
+      <div class="quiz-question"><p>4. Замечаете ли вы внутреннего критика после еды?</p><div class="quiz-options"><label><input type="radio" name="q4" value="2"> Часто ругаю себя за съеденное</label><label><input type="radio" name="q4" value="1"> Иногда бывает чувство вины</label><label><input type="radio" name="q4" value="0"> Отношусь к еде спокойно</label></div></div>
+      <div class="quiz-question"><p>5. Насколько вам интересно исследовать ощущения без цели похудеть?</p><div class="quiz-options"><label><input type="radio" name="q5" value="2"> Очень интересно</label><label><input type="radio" name="q5" value="1"> Пока не уверен(а), но любопытно</label><label><input type="radio" name="q5" value="0"> Мне важнее конкретный результат</label></div></div>
+      <div class="btn-group"><button type="button" class="btn" onclick="calculateQuiz()">Узнать результат</button></div>
+    </form>
+
+    <div class="quiz-result" id="quizResult">
+      <h3 id="resultTitle"></h3>
+      <p id="resultText"></p>
+      <div class="btn-group">
+        <button class="btn" onclick="goToStep(7)">Продолжить →</button>
+        <button class="btn btn-ghost" onclick="resetQuiz()">Пройти тест снова</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- 7 -->
+  <section class="card" id="step7">
+    <span class="tag">Шаг 7 · Практика</span>
+    <h1>Не «что есть», а «как есть»</h1>
+    <p class="subtitle">Три упражнения, которые можно попробовать уже в следующий приём пищи.</p>
+
+    <div class="illustration-block">
+      <svg viewBox="0 0 400 200" xmlns="http://www.w3.org/2000/svg">
+        <rect width="400" height="200" fill="#FDF8F3"/>
+        <circle cx="200" cy="90" r="50" fill="none" stroke="#4A6B5A" stroke-width="6"/>
+        <line x1="235" y1="125" x2="270" y2="160" stroke="#4A6B5A" stroke-width="8" stroke-linecap="round"/>
+        <circle cx="200" cy="90" r="25" fill="#D4A373"/>
+        <path d="M200 65 Q210 50 220 55" stroke="#4A6B5A" stroke-width="3" fill="none"/>
+      </svg>
+      <div class="illustration-caption">Попробуйте заметить текстуру, цвет и запах до первого укуса</div>
+    </div>
+
+    <h2>Первый принцип: остановка</h2>
+    <p>Перед тем как начать есть, сделайте паузу в 10–15 секунд. Посмотрите на еду. Заметьте: вы действительно голодны? Или это усталость, скука, привычка? Это не запрет есть — это момент выбора.</p>
+
+    <h2>Второй принцип: включение чувств</h2>
+    <p>Попробуйте съесть один небольшой кусочек — фрукт, орех, ломтик сыра — с полным вниманием.</p>
+
+    <div class="highlight-box">
+      <p><strong>Упражнение «Один изюм»:</strong></p>
+      <p>1. Возьмите изюминку. Представьте, что видите её впервые.</p>
+      <p>2. Рассмотрите цвет, форму, морщинки.</p>
+      <p>3. Понюхайте. Заметьте, появляется ли слюна.</p>
+      <p>4. Положите в рот, но не жуйте сразу. Почувствуйте вес и текстуру.</p>
+      <p>5. Медленно укусите. Заметьте, как меняется вкус.</p>
+      <p>6. Проглотите и отследите ощущение в горле.</p>
+    </div>
+
+    <h2>Третий принцип: без осуждения</h2>
+    <p>Если вы отвлеклись, поймали себя на мысли «это глупо» или «я делаю неправильно» — это нормально. Осознанность — не идеальная концентрация, а умение заметить, куда ушло внимание, и мягко вернуться.</p>
+
+    <div class="btn-group"><button class="btn" onclick="goToStep(8)">Что может мешать →</button></div>
+  </section>
+
+  <!-- 8 -->
+  <section class="card" id="step8">
+    <span class="tag">Шаг 8 · Препятствия</span>
+    <h1>Что может мешать осознанному питанию и повышать аппетит</h1>
+    <p class="subtitle">Иногда дело не в «слабой воле». Иногда телу действительно чего-то не хватает — или еда стала способом справляться с эмоциями.</p>
+
+    <div class="obstacles-block">
+      <div class="obstacle-item">
+        <h3>🧪 1. Дефициты и несбалансированный рацион</h3>
+        <p>Когда рацион беден по белку, клетчатке, жирам или отдельным микронутриентам, голод может становиться более навязчивым. Важно: по одной «тяге к сладкому» нельзя диагностировать дефицит. Но устойчивые изменения аппетита — повод разобраться.</p>
+        <ul>
+          <li><strong>Недостаток белка</strong> → голод быстрее возвращается, чаще хочется перекусывать.</li>
+          <li><strong>Мало клетчатки</strong> → насыщение наступает хуже, еда «не держит».</li>
+          <li><strong>Слишком мало жиров</strong> → еда может быть менее насыщающей и менее вкусной.</li>
+          <li><strong>Железодефицит</strong> → может сопровождаться усталостью, снижением энергии, иногда необычными пищевыми желаниями.</li>
+          <li><strong>Недостаток сна и хронический стресс</strong> → повышают тягу к быстрым углеводам и снижают контроль аппетита.</li>
+          <li><strong>Жажда</strong> иногда маскируется под голод. Стакан воды и пауза 10–15 минут — простой тест, но не универсальное правило.</li>
+        </ul>
+        <p><strong>Что делать:</strong> если аппетит резко изменился, появилась выраженная тяга к определённым продуктам, слабость, сонливость или тревога — обсудите это с врачом. Иногда полезны базовые анализы: ОАК, ферритин, витамин D, глюкоза/HbA1c — по показаниям.</p>
+      </div>
+
+      <div class="obstacle-item">
+        <h3>💭 2. Эмоциональное переедание</h3>
+        <p>Это ситуация, когда еда используется не для утоления голода, а для регуляции эмоций. Еда действительно может успокаивать — поэтому важно не ругать себя, а понять, какую задачу она решает.</p>
+        
+        <div class="highlight-box" style="margin-top:15px">
+          <p><strong>Чек-лист: «Физический или эмоциональный голод?»</strong></p>
+          <ul style="margin-top:10px">
+            <li><strong>Физический:</strong> нарастает постепенно, можно подождать, вы готовы съесть даже яблоко или брокколи, после еды нет чувства вины.</li>
+            <li><strong>Эмоциональный:</strong> возникает внезапно, требует удовлетворения «прямо сейчас», вы хотите конкретную еду (сладкое, жирное), после еды приходит стыд.</li>
+          </ul>
+          <p style="margin-top:10px"><em>💡 «Тест с яблоком»: если вы не готовы прямо сейчас съесть обычное яблоко, скорее всего, вы не голодны физически, а испытываете эмоцию, которую хотите «заесть».</em></p>
+        </div>
+
+        <p style="margin-top:15px"><strong>Как работать:</strong> добавьте в дневник блок «эмоции до и после еды». Называйте эмоцию простыми словами: усталость, раздражение, скука, тревога, одиночество. Это помогает выбрать другую реакцию: прогулку, душ, разговор, паузу, сон, растяжку или просто 10 минут тишины.</p>
+      </div>
+    </div>
+
+    <div class="btn-group"><button class="btn" onclick="goToStep(9)">Перейти к методу порций →</button></div>
+  </section>
+
+  <!-- 9 -->
+  <section class="card" id="step9">
+    <span class="tag">Шаг 9 · Инструмент</span>
+    <h1>Метод ладоней: ваши личные весы</h1>
+    <p class="subtitle">Простой способ определить размер порции без весов и таблиц калорий.</p>
+
+    <div class="hand-method">
+      <h2>🖐️ Для чего нужен метод ладоней</h2>
+      <p>Фразы «съешьте 100 грамм белка» или «добавьте 50 грамм крупы» звучат точно, но в жизни неудобны. Не носить же весы в кафе, в гости или на работу.</p>
+      <p>Метод ладоней использует ваше собственное тело как меру. Ваша ладонь всегда с вами и примерно соответствует вашему размеру тела.</p>
+
+      <div class="hand-table">
+        <div class="hand-row"><span class="hr-icon">🥩</span><span class="hr-name">Белок</span><span class="hr-size">1 ладонь без пальцев</span></div>
+        <div class="hand-row"><span class="hr-icon">🍚</span><span class="hr-name">Углеводы</span><span class="hr-size">1 пригоршня</span></div>
+        <div class="hand-row"><span class="hr-icon">🥑</span><span class="hr-name">Жиры</span><span class="hr-size">1 большой палец</span></div>
+        <div class="hand-row"><span class="hr-icon">🥦</span><span class="hr-name">Клетчатка</span><span class="hr-size">2 пригоршни / 2 кулака</span></div>
+      </div>
+
+      <div class="highlight-box">
+        <p><strong>Что такое пригоршня?</strong></p>
+        <p>Пригоршня — это ваша ладонь, сложенная «лодочкой», как будто вы хотите зачерпнуть воду. То, что помещается в такую ладонь, — одна пригоршня.</p>
+        <p>Для круп удобнее ориентироваться так: одна пригоршня сухой крупы — примерно 40–60 г, в зависимости от размера ладони и продукта. После варки объём увеличивается.</p>
+      </div>
+
+      <h2>Примеры применения</h2>
+      <p><strong>Обед дома:</strong></p>
+      <ul>
+        <li>Белок: кусок курицы, рыбы или творог — примерно с вашу ладонь.</li>
+        <li>Углеводы: гречка, рис, картофель — одна пригоршня.</li>
+        <li>Клетчатка: салат, овощи, зелень — две пригоршни.</li>
+        <li>Жиры: масло для салата — объём примерно с большой палец.</li>
+      </ul>
+
+      <p><strong>Перекус:</strong></p>
+      <ul>
+        <li>Творог/йогурт без сахара + ягоды или фрукт.</li>
+        <li>Орехи — не «ладонь белка», а скорее маленькая горсть, потому что орехи богаты жирами.</li>
+        <li>Фрукт — ориентир примерно с кулак.</li>
+      </ul>
+
+      <p><strong>Ужин в кафе:</strong></p>
+      <ul>
+        <li>Рыба или птица — с ладонь.</li>
+        <li>Рис, картофель или крупа — с пригоршню.</li>
+        <li>Овощной гарнир — две пригоршни.</li>
+      </ul>
+
+      <div class="accent-box">
+        <p><strong>Важно:</strong> метод ладоней — не медицинское назначение и не точный подсчёт. Это практичный ориентир. При диабете, заболеваниях почек, спорте, беременности или РПП порции могут требовать индивидуальной коррекции.</p>
+      </div>
+    </div>
+
+    <div class="btn-group"><button class="btn" onclick="goToStep(10)">Перейти к тарелке →</button></div>
+  </section>
+
+  <!-- 10 -->
+  <section class="card" id="step10">
+    <span class="tag">Шаг 10 · Инструмент</span>
+    <h1>Здоровая тарелка: ½ клетчатки, ¼ белка, ¼ углеводов</h1>
+    <p class="subtitle">Визуальная схема, которая помогает собрать приём пищи без подсчёта калорий.</p>
+
+    <div class="illustration-block">
+      <svg viewBox="0 0 400 200" xmlns="http://www.w3.org/2000/svg">
+        <rect width="400" height="200" fill="#F0F5F2"/>
+        <circle cx="200" cy="100" r="70" fill="#FFF" stroke="#E2DACE" stroke-width="2"/>
+        <circle cx="200" cy="100" r="58" fill="#F7F4EE"/>
+        <path d="M200 42 A58 58 0 0 1 200 158 L200 100 Z" fill="#9CCB86" opacity=".55"/>
+        <path d="M200 158 A58 58 0 0 1 142 100 L200 100 Z" fill="#F4A582" opacity=".55"/>
+        <path d="M142 100 A58 58 0 0 1 200 42 L200 100 Z" fill="#E9C46A" opacity=".55"/>
+        <text x="225" y="102" font-size="12" font-weight="700" fill="#4E7A43" text-anchor="middle">½</text>
+        <text x="225" y="118" font-size="10" fill="#4E7A43" text-anchor="middle">клетчатка</text>
+        <text x="170" y="132" font-size="11" font-weight="700" fill="#B5624A" text-anchor="middle">¼ белок</text>
+        <text x="170" y="76" font-size="11" font-weight="700" fill="#8A6A1F" text-anchor="middle">¼ углеводы</text>
+      </svg>
+      <div class="illustration-caption">Тарелка — это карта, а не экзамен</div>
+    </div>
+
+    <h2>Что означает каждая зона</h2>
+    <div class="combo-steps">
+      <div class="combo-step"><div class="cs-num">½</div><div class="cs-text"><strong>Клетчатка.</strong> Овощи, зелень, ягоды, фрукты, бобовые. В этой части тарелки особенно важны некрахмалистые овощи: огурцы, помидоры, капуста, морковь, перец, зелень, кабачки, баклажаны.</div></div>
+      <div class="combo-step"><div class="cs-num">¼</div><div class="cs-text"><strong>Белок.</strong> Рыба, птица, яйца, творог, йогурт без сахара, tofu, бобовые. Белок помогает насыщению и сохранению мышечной массы.</div></div>
+      <div class="combo-step"><div class="cs-num">¼</div><div class="cs-text"><strong>Углеводы.</strong> Крупы, картофель, цельнозерновой хлеб, макароны из твёрдых сортов, бобовые. Лучше чаще выбирать менее рафинированные источники.</div></div>
+    </div>
+
+    <h2>Почему это работает</h2>
+    <ul>
+      <li><strong>Просто:</strong> не нужно считать калории — достаточно посмотреть на тарелку.</li>
+      <li><strong>Сбалансированно:</strong> схема помогает не забыть про белок и клетчатку.</li>
+      <li><strong>Гибко:</strong> подходит для дома, кафе, гостей, командировок.</li>
+      <li><strong>Устойчиво:</strong> это не диета на две недели, а способ думать о еде в обычной жизни.</li>
+    </ul>
+
+    <div class="highlight-box">
+      <p><strong>Важно:</strong> это ориентир, а не жёсткое правило. Если сегодня тарелка выглядит иначе — это не провал. Смотрите на общую тенденцию, а не на один приём пищи.</p>
+    </div>
+
+    <div class="btn-group"><button class="btn" onclick="goToStep(11)">Совместить с методом ладоней →</button></div>
+  </section>
+
+  <!-- 11 -->
+  <section class="card" id="step11">
+    <span class="tag">Шаг 11 · Практика</span>
+    <h1>Как совместить тарелку и метод ладоней</h1>
+    <p class="subtitle">Тарелка говорит «в каких пропорциях», ладонь уточняет «сколько примерно вам».</p>
+
+    <div class="combo-steps">
+      <div class="combo-step"><div class="cs-num">1</div><div class="cs-text"><strong>Начните с карты.</strong> Половина тарелки — клетчатка, четверть — белок, четверть — углеводы.</div></div>
+      <div class="combo-step"><div class="cs-num">2</div><div class="cs-text"><strong>Белок.</strong> Кусок рыбы, птицы, мяса или порция творога — примерно с вашу ладонь.</div></div>
+      <div class="combo-step"><div class="cs-num">3</div><div class="cs-text"><strong>Углеводы.</strong> Крупа, картофель, рис — примерно одна пригоршня.</div></div>
+      <div class="combo-step"><div class="cs-num">4</div><div class="cs-text"><strong>Клетчатка.</strong> Овощи и зелень — минимум две пригоршни.</div></div>
+      <div class="combo-step"><div class="cs-num">5</div><div class="cs-text"><strong>Жиры.</strong> Масло, орехи, авокадо — небольшой объём, примерно с большой палец.</div></div>
+    </div>
+
+    <h2>Пример: обед</h2>
+    <ul>
+      <li>Белок: запечённая куриная грудка или рыба — примерно с ладонь.</li>
+      <li>Углеводы: гречка — примерно одна пригоршня.</li>
+      <li>Клетчатка: салат из огурцов, помидоров и зелени — две пригоршни.</li>
+      <li>Жиры: оливковое масло для салата — примерно один большой палец по объёму.</li>
+    </ul>
+
+    <div class="highlight-box">
+      <p><strong>Главная польза:</strong> вы получаете не абстрактную диету, а простой способ принимать решения в реальной жизни — без весов, таблиц и чувства вины.</p>
+    </div>
+
+    <div class="btn-group"><button class="btn" onclick="goToStep(12)">Перейти к целям →</button></div>
+  </section>
+
+  <!-- 12 -->
+  <section class="card" id="step12">
+    <span class="tag">Шаг 12 · Цель</span>
+    <h1>Красивое тело — не цель. Здоровье — цель.</h1>
+    <p class="subtitle">Форма может быть следствием здоровья. Но здоровье не стоит приносить в жертву форме.</p>
+
+    <div class="health-vs-beauty">
+      <p>Мы часто называем «красивым» тело, которое выглядит живым, сильным, функциональным: хорошая осанка, достаточная мышечная масса, энергия, выносливость. Но ловушка начинается там, где внешний вид становится важнее самочувствия.</p>
+
+      <div class="hvb-compare">
+        <div class="hvb-col trap">
+          <h3>⚠️ Если цель — только форма</h3>
+          <ul>
+            <li>Жёсткие диеты могут приводить к дефицитам.</li>
+            <li>Снижается энергия, ухудшается сон и настроение.</li>
+            <li>У женщин возможны нарушения цикла.</li>
+            <li>Растёт тревога вокруг еды и веса.</li>
+            <li>Пищевые ограничения становятся всё жёстче.</li>
+          </ul>
+        </div>
+        <div class="hvb-col goal">
+          <h3>✓ Если цель — здоровье</h3>
+          <ul>
+            <li>Снижается артериальное давление при гипертензии.</li>
+            <li>Улучшаются показатели печени при НАЖБП.</li>
+            <li>Уменьшается боль в суставах при снижении избыточной массы тела.</li>
+            <li>Улучшается чувствительность к инсулину.</li>
+            <li>Появляется больше энергии и устойчивости.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="hvb-conclusion">
+        <p><strong>Простой вывод:</strong> преследуйте здоровье — и форма может прийти как побочный эффект. Преследуйте только форму — и здоровье может стать жертвой.</p>
+        <p style="margin-top:8px;margin-bottom:0;">Быть здоровым — не значит обязательно быть стройным. Быть здоровым — значит быть функциональным, выносливым и устойчивым.</p>
+      </div>
+    </div>
+
+    <div class="btn-group"><button class="btn" onclick="goToStep(13)">Перейти к дневнику →</button></div>
+  </section>
+
+  <!-- 13 -->
+  <section class="card" id="step13">
+    <span class="tag">Шаг 13 · Инструмент</span>
+    <h1>Дневник, который не считает калории</h1>
+    <p class="subtitle">Как записывать наблюдения, чтобы они помогали, а не превращались в контроль.</p>
+
+    <div class="illustration-block">
+      <svg viewBox="0 0 400 200" xmlns="http://www.w3.org/2000/svg">
+        <rect width="400" height="200" fill="#F8F6F2"/>
+        <rect x="120" y="50" width="160" height="110" rx="8" fill="#FFF" stroke="#D4C9BC" stroke-width="2"/>
+        <line x1="140" y1="50" x2="140" y2="160" stroke="#D4C9BC" stroke-width="2"/>
+        <line x1="150" y1="70" x2="260" y2="70" stroke="#E0DCD5" stroke-width="2"/>
+        <line x1="150" y1="90" x2="260" y2="90" stroke="#E0DCD5" stroke-width="2"/>
+        <line x1="150" y1="110" x2="230" y2="110" stroke="#E0DCD5" stroke-width="2"/>
+        <line x1="150" y1="130" x2="250" y2="130" stroke="#E0DCD5" stroke-width="2"/>
+        <rect x="290" y="60" width="12" height="80" rx="6" fill="#4A6B5A" transform="rotate(15 296 100)"/>
+        <polygon points="290,145 302,145 296,160" fill="#D4A373" transform="rotate(15 296 100)"/>
+      </svg>
+      <div class="illustration-caption">Фиксация опыта помогает увидеть паттерны без осуждения</div>
+    </div>
+
+    <div class="accent-box">
+      <p><strong>Важное предупреждение:</strong> если дневник вызывает тревогу, усиливает самокритику или желание ограничивать себя — прекратите. Это инструмент, а не экзамен.</p>
+    </div>
+
+    <h2>Шкала голода и насыщения</h2>
+    <p>Голод и насыщение — не «вкл/выкл», а постепенные состояния. Шкала помогает их заметить.</p>
+
+    <div class="hunger-scale">
+      <div class="hunger-scale-header">📊 Шкала голода и насыщения (1–10)</div>
+      <div id="hungerRows"></div>
+      <div class="scale-legend">
+        <span><span class="legend-dot" style="background:#6B8F7A"></span>3–4 — хорошо начинать</span>
+        <span><span class="legend-dot" style="background:#C9A84C"></span>6–7 — хорошо заканчивать</span>
+        <span><span class="legend-dot" style="background:#C97B63"></span>1–2 и 8–10 — лучше избегать</span>
+      </div>
+    </div>
+
+    <h2>Что можно записывать</h2>
+    <ul>
+      <li><strong>Голод перед едой</strong> по шкале 1–10.</li>
+      <li><strong>Насыщение после еды</strong> по той же шкале.</li>
+      <li><strong>Эмоции до и после еды</strong> — усталость, тревога, скука, спокойствие, радость.</li>
+      <li><strong>Одна сенсорная деталь:</strong> что было самым вкусным? Что заметили в текстуре?</li>
+    </ul>
+
+    <h2>Пример записи</h2>
+    <div class="diary-example">
+      <button class="copy-btn" onclick="copyDiary()">📋 Скопировать</button>
+      <span class="label">Дата:</span> вторник, вечер<br>
+      <span class="label">Голод перед едой:</span> 5/10<br>
+      <span class="label">Эмоция до еды:</span> усталость после работы, раздражение<br>
+      <span class="label">Что ел:</span> печенье с чаем<br>
+      <span class="label">Эмоция после еды:</span> на 5 минут стало легче, потом появилась вина<br>
+      <span class="label">Насыщение после:</span> 6/10<br>
+      <span class="label">Без осуждения:</span> заметил паттерн: ем не из-за голода, а чтобы переключиться. В следующий раз попробую 10 минут тишины до перекуса.
+    </div>
+
+    <div class="btn-group"><button class="btn" onclick="goToStep(14)">Получить персональный паспорт →</button></div>
+  </section>
+
+  <!-- 14 -->
+  <section class="card" id="step14">
+    <span class="tag">Шаг 14 · Персонализация</span>
+    <h1>Ваш персональный паспорт осознанного питания</h1>
+    <p class="subtitle">На основе ваших ответов в тестах — короткая индивидуальная сводка.</p>
+
+    <div class="passport-block">
+      <div class="passport-header">
+        <div class="passport-ico">📋</div>
+        <div>
+          <h2 class="passport-title" id="passportTitle">Ваш персональный паспорт</h2>
+          <div class="passport-subtitle">Составлен на основе ваших ответов в шагах 5 и 6</div>
+        </div>
+      </div>
+
+      <div class="passport-section">
+        <div class="passport-section-title">🎯 Ваш профиль</div>
+        <div class="passport-section-content" id="passportProfile"></div>
+      </div>
+      <div class="passport-section">
+        <div class="passport-section-title">💪 Ваши сильные стороны</div>
+        <div class="passport-section-content" id="passportStrengths"></div>
+      </div>
+      <div class="passport-section">
+        <div class="passport-section-title">🌱 Главная точка роста на неделю</div>
+        <div class="passport-focus" id="passportFocus"></div>
+      </div>
+      <div class="passport-section">
+        <div class="passport-section-title">🧭 Ваши упражнения из курса</div>
+        <div class="passport-section-content" id="passportExercises"></div>
+      </div>
+    </div>
+
+    <div class="btn-group">
+      <button class="btn btn-secondary" onclick="generateBonusPassport()">📄 Сохранить паспорт как PDF</button>
+      <button class="btn" onclick="goToStep(15)">Перейти к плану недели →</button>
+    </div>
+  </section>
+
+  <!-- 15 -->
+  <section class="card" id="step15">
+    <div class="final-message">
+      <div class="emoji-icon">🌱</div>
+      <h1>Это только начало</h1>
+      <p class="subtitle">Без давления и обязательств.</p>
+    </div>
+
+    <div class="highlight-box">
+      <p><strong>Что можно попробовать на этой неделе:</strong></p>
+      <p>• Один раз поесть без экрана. Просто еда и вы.</p>
+      <p>• Задать себе вопрос перед едой: «На каком уровне голода я сейчас?»</p>
+      <p>• Собрать один приём пищи по методу «тарелка + ладонь».</p>
+      <p>• Съесть один кусочек чего-то вкусного медленно.</p>
+      <p>• Сделать одну короткую запись в дневнике — включая эмоции до и после еды.</p>
+      <p>• Проверить, достаточно ли вы пьёте и не пропускаете ли основные приёмы пищи.</p>
+    </div>
+
+    <div class="habits-block">
+      <h2>🌿 Как меняться, чтобы это получилось</h2>
+      <p>Формирование привычек — не быстрый и не линейный процесс. Важно выстроить посильный план, а не требовать от себя идеальности.</p>
+
+      <div class="habit-tips">
+        <div class="habit-tip"><span class="ht-ico">🌱</span><p><strong>Допускайте, что меняться сложно.</strong> Сопротивление — часть пути, а не признак слабости.</p></div>
+        <div class="habit-tip"><span class="ht-ico">🎯</span><p><strong>Учитесь делать на «3».</strong> Сделанное несовершенно лучше идеального, которое не случилось.</p></div>
+        <div class="habit-tip"><span class="ht-ico">💚</span><p><strong>Ошибки — это данные.</strong> Не провал, а информация о том, что стоит настроить.</p></div>
+        <div class="habit-tip"><span class="ht-ico">✨</span><p><strong>Наслаждайтесь процессом.</strong> Результат может занять месяцы. Не отдавайте всю жизнь ожиданию финала.</p></div>
+        <div class="habit-tip"><span class="ht-ico">📊</span><p><strong>Смотрите на промежуточные результаты.</strong> «Сегодня не получилось» — факт, а не приговор.</p></div>
+        <div class="habit-tip"><span class="ht-ico">🧘</span><p><strong>Не ждите идеального момента.</strong> Начните с одного маленького действия сегодня.</p></div>
+      </div>
+
+      <div class="accent-box" style="margin-top:20px">
+        <h3 style="margin-top:0; color:var(--primary)">🛡️ Что делать после переедания</h3>
+        <p style="font-size:14px; margin-bottom:10px">Это самый важный навык. Если вы переели, не наказывайте себя голодовкой на следующий день — это лишь запустит новый цикл срывов.</p>
+        <ul style="font-size:14px; margin:0; padding-left:20px">
+          <li><strong>Правило «следующего приёма пищи»:</strong> просто вернитесь к обычному режиму питания с следующего раза, как ни в чём не бывало.</li>
+          <li><strong>Без самобичевания:</strong> скажите себе: «Это был просто один приём пищи. Он не определяет моё здоровье и не перечёркивает мой прогресс».</li>
+          <li><strong>Анализ без вины:</strong> позже спокойно спросите себя: «Что стало триггером? Усталость? Стресс? Вкусная еда в гостях?»</li>
+        </ul>
+      </div>
+
+      <div class="highlight-box" style="margin-top:20px">
+        <h3 style="margin-top:0; color:var(--primary)">💡 Лайфхаки для сложных ситуаций</h3>
+        <ul style="font-size:14px; margin:0; padding-left:20px">
+          <li><strong>В кафе:</strong> попросите соус или заправку подать отдельно. Сделайте паузу, когда съели половину блюда, чтобы оценить сытость.</li>
+          <li><strong>В гостях:</strong> не доедайте «из вежливости». Вежливо поблагодарите хозяйку, но остановитесь, когда почувствуете комфортную сытость (6–7 баллов).</li>
+          <li><strong>Вечерний жор:</strong> если тянет к еде перед сном, спросите: «Я действительно голоден или просто устал/скучаю?». Попробуйте альтернативу: травяной чай, тёплый душ, книга или растяжка.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="accent-box" style="margin-top:20px">
+      <p><strong>Когда стоит быть внимательнее к себе:</strong> если растёт тревога, вина, навязчивые мысли о еде или теле — это сигнал остановиться и обратиться за помощью. Осознанное питание не заменяет лечение РПП.</p>
+    </div>
+
+    <div class="btn-group"><button class="btn" onclick="goToStep(16)">Получить бонусы →</button></div>
+  </section>
+
+  <!-- 16 -->
+  <section class="card" id="step16">
+    <span class="tag">Шаг 16 · Бонусы</span>
+    <h1>Ваши материалы для скачивания</h1>
+    <p class="subtitle">Сохраните как PDF или распечатайте — чтобы использовать вне курса.</p>
+
+    <div class="bonuses-block">
+      <h2>📥 Бонусные материалы</h2>
+      <p>Нажмите на карточку. Откроется готовый документ. В окне документа нажмите «Печать / Сохранить как PDF» или используйте Ctrl+P / Cmd+P.</p>
+      <div class="bonus-cards">
+        <div class="bonus-card" onclick="generateBonusScale()">
+          <span class="bonus-ico">📊</span>
+          <div class="bonus-title">Шкала голода и сытости</div>
+          <div class="bonus-desc">Для холодильника или заметок в телефоне</div>
+          <div class="bonus-btn">Создать PDF</div>
+        </div>
+        <div class="bonus-card" onclick="generateBonusHands()">
+          <span class="bonus-ico">🖐️</span>
+          <div class="bonus-title">Метод ладоней</div>
+          <div class="bonus-desc">Шпаргалка по порциям без весов</div>
+          <div class="bonus-btn">Создать PDF</div>
+        </div>
+        <div class="bonus-card" onclick="generateBonusTracker()">
+          <span class="bonus-ico">📓</span>
+          <div class="bonus-title">Трекер на 7 дней</div>
+          <div class="bonus-desc">Дневник эмоций и питания</div>
+          <div class="bonus-btn">Создать PDF</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="feedback-block">
+      <h2>💬 Поделитесь впечатлениями</h2>
+      <p><span class="name-place">здравствуйте</span>, ваше мнение очень важно. Расскажите, что было полезным, а что хотелось бы улучшить.</p>
+      <a href="https://docs.google.com/forms/d/e/1FAIpQLScMNhOBWKb8whOd4asF2tPWgT2FnzFlbHAz1eriLanIyVP-fw/viewform?usp=publish-editor" target="_blank" class="btn-feedback">✍️ Оставить отзыв</a>
+      <p style="margin-top:15px;font-size:13px;color:var(--text-light)">Это займёт 2–3 минуты.</p>
+    </div>
+
+    <div style="text-align:center;margin:30px 0">
+      <p style="font-size:17px;font-weight:700">Вы прошли весь путь.</p>
+      <p style="font-size:14px;color:var(--text-light)">Нажмите кнопку, чтобы увидеть, что вы получили.</p>
+      <button class="btn-celebrate" onclick="showCelebration()">🎉 Изучил материалы</button>
+    </div>
+
+    <div class="btn-group">
+      <button class="btn btn-secondary" onclick="goToStep(0)">Вернуться в начало</button>
+    </div>
+
+    <button class="sources-toggle" onclick="toggleSources()">📚 Источники и полезные материалы <span class="toggle-icon">▼</span></button>
+    <div class="sources" id="sources">
+      <ul>
+        <li>ВОЗ. Здоровое питание — <a class="source-link" target="_blank" href="https://www.who.int/ru/news-room/fact-sheets/detail/healthy-diet">who.int</a></li>
+        <li>Harvard T.H. Chan School of Public Health. Healthy Eating Plate — <a class="source-link" target="_blank" href="https://www.hsph.harvard.edu/nutritionsource/healthy-eating-plate/">hsph.harvard.edu</a></li>
+        <li>Tribole E., Resch E. Intuitive Eating.</li>
+        <li>Satter E. Secrets of Feeding a Healthy Family.</li>
+        <li>University of Pennsylvania. Eating Mindfulness.</li>
+        <li>Godfrey K.M. et al. Mindfulness-based interventions for binge eating. J Behav Med.</li>
+      </ul>
+      <p style="margin-top:15px;font-size:12px">Материал носит образовательный характер и не заменяет консультацию специалиста.</p>
+    </div>
+  </section>
+</div>
+
+<div class="celebration-modal" id="celebrationModal">
+  <div class="celebration-content">
+    <div class="celebration-emoji">🎊</div>
+    <h2 class="celebration-title" id="celebrationTitle">Поздравляем!</h2>
+    <p class="subtitle">Вы прошли мини-курс по осознанному питанию.</p>
+    <div class="celebration-text">
+      <p><strong>Что вы теперь умеете:</strong></p>
+      <ul>
+        <li>Понимать разницу между осознанным питанием и диетами.</li>
+        <li>Применять 10 принципов интуитивного питания.</li>
+        <li>Распознавать голод и насыщение по шкале 1–10.</li>
+        <li>Использовать метод ладоней для порций.</li>
+        <li>Собирать тарелку: ½ клетчатки, ¼ белка, ¼ углеводов.</li>
+        <li>Замечать связь эмоций и пищевого поведения.</li>
+        <li>Вести дневник без осуждения.</li>
+        <li>Формировать привычки без давления на себя.</li>
+      </ul>
+      <p>Главное открытие ждёт вас не в этом материале, а в повседневности — в следующем приёме пищи.</p>
+    </div>
+    <div>
+      <button class="celebration-close cert-btn" onclick="generateCertificate()">🎓 Получить сертификат</button>
+      <button class="celebration-close" onclick="closeCelebration()">Спасибо!</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast">Готово</div>
+
+<script>
+const steps = [
+  'Старт',
+  '1. Еда — не только калории',
+  '2. Интуитивное питание: принципы 1–5',
+  '3. Интуитивное питание: принципы 6–10',
+  '4. Нормальное питание',
+  '5. Вопросы безопасности',
+  '6. Тест на готовность',
+  '7. Практика осознанности',
+  '8. Что мешает питанию',
+  '9. Метод ладоней',
+  '10. Здоровая тарелка',
+  '11. Тарелка + ладонь',
+  '12. Здоровье важнее формы',
+  '13. Дневник и шкала голода',
+  '14. Персональный паспорт',
+  '15. Это только начало',
+  '16. Бонусы и отзыв'
+];
+
+let currentStep = 0;
+let firstName = '';
+let lastName = '';
+let userAnswers = {rpp:null, quiz:null};
+
+const principlesA = [
+  ['Отказ от диетной ментальности','Волшебной диеты, которая «точно сработает», не существует. Признание этого — первый шаг к спокойным отношениям с едой.'],
+  ['Уважение к голоду','Голод — не враг. Реагируйте на его сигналы вовремя, не дожидаясь крайней точки — иначе риск переесть возрастает.'],
+  ['Примирение с едой','Легализовать все продукты бывает страшно. Кажется, что без правил вы потеряете контроль. На деле часто происходит наоборот.'],
+  ['Отказ от контроля','Нет плохой и хорошей еды. Голос «не ешь это!» забирает ментальное здоровье. Задача — заменить внутреннего критика более спокойным голосом.'],
+  ['Внимание к сытости','Прекращайте есть, когда почувствовали комфортную сытость. Только ваш организм знает, когда он сыт.']
+];
+const principlesB = [
+  ['Фактор удовлетворения','Еда — не наказание, она должна быть вкусной. Обезжиренные и «диетические» версии часто оставляют неудовлетворённость.'],
+  ['Внимание к эмоциям','Еда не решает эмоциональные проблемы. Она может успокоить на короткое время, но не заменяет отдых, поддержку, разговор или сон.'],
+  ['Уважение к телу','Вместо поиска изъянов — замечайте, что тело делает для вас каждый день: дышит, двигается, восстанавливается.'],
+  ['Интуитивное движение','Двигайтесь не в наказание за съеденное, а потому что движение помогает чувствовать себя живее.'],
+  ['Нежное питание','Питаться идеально всегда не нужно. Подход «всё или ничего» в питании не работает.']
+];
+
+const hungerData = [
+  [1,'Сильный голод','Голодно так, что трясутся руки, кружится голова, растёт раздражительность.','avoid','zone-deepred'],
+  [2,'Очень голоден','Желудок урчит, мысли заняты едой, трудно сосредоточиться.','avoid','zone-red'],
+  [3,'Умеренный голод','Лёгкое ощущение пустоты. Комфортная точка для начала.','start','zone-orange'],
+  [4,'Лёгкий голод','Только начинаете замечать, что проголодались. Отличная стартовая точка.','start','zone-green'],
+  [5,'Нейтрально','Ни голода, ни сытости. Можно есть по расписанию, но сигналов голода пока нет.','','zone-green'],
+  [6,'Комфортная сытость','Приятное наполнение. Голод утолён, еда ещё вкусна.','stop','zone-yellow'],
+  [7,'Полная сытость','Живот наполнен, появляется лёгкая тяжесть. Верхняя граница нормы.','stop','zone-yellow'],
+  [8,'Переел','Распирание, тяжесть, хочется расстегнуть пояс.','avoid','zone-red'],
+  [9,'Сильно переел','Дискомфорт, тошнота, хочется лечь.','avoid','zone-deepred'],
+  [10,'Очень сильно переел','Физически плохо. Тело просит остановиться и отдохнуть.','avoid','zone-deepred']
+];
+
+document.addEventListener('DOMContentLoaded', () => {
+  buildNav();
+  renderPrinciples();
+  renderHunger();
+  try {
+    const savedFirst = localStorage.getItem('mindfulFirstName');
+    const savedLast = localStorage.getItem('mindfulLastName');
+    if(savedFirst && savedLast){
+      firstName = savedFirst;
+      lastName = savedLast;
+      document.getElementById('firstNameInput').value = firstName;
+      document.getElementById('lastNameInput').value = lastName;
+      document.getElementById('nameSavedHint').classList.add('show');
+      updateName();
+    }
+  } catch(e){}
+  document.getElementById('firstNameInput').addEventListener('keypress', e => {
+    if(e.key === 'Enter'){ e.preventDefault(); saveName(); }
+  });
+  document.getElementById('lastNameInput').addEventListener('keypress', e => {
+    if(e.key === 'Enter'){ e.preventDefault(); saveName(); }
+  });
+  goToStep(0);
+});
+
+function buildNav(){
+  const select = document.getElementById('stepSelect');
+  select.innerHTML = steps.map((s,i)=>`<option value="${i}">${s}</option>`).join('');
+}
+function renderPrinciples(){
+  const card = (p,i,offset=0)=>`<div class="principle-card"><span class="pc-num">${i+1+offset}</span><h3>${p[0]}</h3><p>${p[1]}</p></div>`;
+  document.getElementById('principlesA').innerHTML = principlesA.map((p,i)=>card(p,i)).join('');
+  document.getElementById('principlesB').innerHTML = principlesB.map((p,i)=>card(p,i,5)).join('');
+}
+function renderHunger(){
+  const marker = t => t==='start'?'<span class="hunger-marker marker-start">начинать</span>':t==='stop'?'<span class="hunger-marker marker-stop">заканчивать</span>':t==='avoid'?'<span class="hunger-marker marker-avoid">избегать</span>':'';
+  document.getElementById('hungerRows').innerHTML = hungerData.map(r=>`
+    <div class="hunger-row ${r[4]}">
+      <div class="hunger-num">${r[0]}</div>
+      <div class="hunger-text">
+        <span class="ht-title">${r[1]} ${marker(r[3])}</span>
+        <span class="ht-desc">${r[2]}</span>
+      </div>
+    </div>`).join('');
+}
+
+function saveName(){
+  const fName = document.getElementById('firstNameInput').value.trim();
+  const lName = document.getElementById('lastNameInput').value.trim();
+  
+  if(!fName || !lName){
+    if(!fName) document.getElementById('firstNameInput').style.borderColor='var(--danger)';
+    if(!lName) document.getElementById('lastNameInput').style.borderColor='var(--danger)';
+    setTimeout(()=>{
+      document.getElementById('firstNameInput').style.borderColor='#E0DCD5';
+      document.getElementById('lastNameInput').style.borderColor='#E0DCD5';
+    }, 1500);
+    return;
+  }
+  
+  firstName = fName;
+  lastName = lName;
+  
+  try{
+    localStorage.setItem('mindfulFirstName', firstName);
+    localStorage.setItem('mindfulLastName', lastName);
+  }catch(e){}
+  
+  document.getElementById('nameSavedHint').classList.add('show');
+  updateName();
+}
+
+function updateName(){
+  document.querySelectorAll('.name-place').forEach(el=>{
+    el.textContent = firstName ? firstName : 'здравствуйте';
+  });
+  document.getElementById('passportTitle').textContent = firstName ? `Ваш персональный паспорт, ${firstName}` : 'Ваш персональный паспорт';
+  document.getElementById('celebrationTitle').textContent = firstName ? `Поздравляем, ${firstName}!` : 'Поздравляем!';
+}
+
+function startJourney(){
+  const fName = document.getElementById('firstNameInput').value.trim();
+  const lName = document.getElementById('lastNameInput').value.trim();
+  if((fName || lName) && (!firstName || !lastName)) saveName();
+  goToStep(1);
+}
+
+function goToStep(step){
+  if(step<0 || step>=steps.length) return;
+  currentStep = step;
+  document.querySelectorAll('.card').forEach(c=>c.classList.remove('active'));
+  document.getElementById('step'+step).classList.add('active');
+  document.getElementById('stepSelect').value = step;
+  document.getElementById('prevBtn').disabled = step===0;
+  document.getElementById('nextBtn').disabled = step===steps.length-1;
+  document.getElementById('progressFill').style.width = (step/(steps.length-1))*100 + '%';
+  if(step===14) generatePassport();
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+function nextStep(){goToStep(currentStep+1)}
+function prevStep(){goToStep(currentStep-1)}
+
+function checkRPP(){
+  const form = document.getElementById('rppForm');
+  const answers=[];
+  for(let i=1;i<=5;i++){
+    const selected = form.querySelector(`input[name="rpp${i}"]:checked`);
+    if(!selected){alert('Пожалуйста, ответьте на все вопросы.');return;}
+    answers.push(parseInt(selected.value));
+  }
+  userAnswers.rpp = answers;
+  updateName();
+  const score = answers.reduce((a,b)=>a+b,0);
+  const warning = document.getElementById('rppWarning');
+  const ok = document.getElementById('rppOk');
+  warning.classList.remove('show'); ok.classList.remove('show');
+  if(score>=2 || answers[4]===1){
+    warning.classList.add('show');
+    warning.scrollIntoView({behavior:'smooth',block:'center'});
+  } else {
+    ok.classList.add('show');
+    ok.scrollIntoView({behavior:'smooth',block:'center'});
+  }
+}
+function resetRPP(){
+  document.getElementById('rppForm').reset();
+  document.getElementById('rppWarning').classList.remove('show');
+  document.getElementById('rppOk').classList.remove('show');
+  userAnswers.rpp=null;
+}
+
+function calculateQuiz(){
+  const form = document.getElementById('quizForm');
+  const vals=[];
+  for(let i=1;i<=5;i++){
+    const selected = form.querySelector(`input[name="q${i}"]:checked`);
+    if(!selected){alert('Пожалуйста, ответьте на все вопросы.');return;}
+    vals.push(parseInt(selected.value));
+  }
+  const [q1,q2,q3,q4,q5]=vals;
+  const total = vals.reduce((a,b)=>a+b,0);
+  userAnswers.quiz={q1,q2,q3,q4,q5,total};
+
+  const title = document.getElementById('resultTitle');
+  const text = document.getElementById('resultText');
+  const prefix = firstName ? firstName + ', ' : '';
+
+  if(q5===0 && total>=6){
+    title.textContent = prefix + 'возможно, сейчас не лучший момент';
+    title.style.color='var(--warning)';
+    text.textContent='Автоматическое питание присутствует, но интерес к процессу пока невелик. Это нормально. Возможно, сейчас вам больше подойдут структурированные рекомендации по составу рациона.';
+  } else if(total>=7){
+    title.textContent = prefix + 'подход, вероятно, вам откликнется';
+    title.style.color='var(--success)';
+    text.textContent='В питании много автоматических действий, и при этом вы открыты к исследованию процесса. Это хорошая точка для практики осознанности.';
+  } else if(total>=4){
+    title.textContent = prefix + 'у вас умеренный интерес и хороший потенциал';
+    title.style.color='var(--primary-light)';
+    text.textContent='У вас уже есть навыки замечания, но есть зоны, где автоматизм проявляется чаще. Начните с одного упражнения в день.';
+  } else {
+    title.textContent = prefix + 'вы уже довольно внимательны к еде';
+    title.style.color='var(--primary)';
+    text.textContent='Вы неплохо слышите сигналы тела. Используйте отдельные упражнения как способ замедлиться в загруженные периоды.';
+  }
+  document.getElementById('quizResult').classList.add('show');
+  document.getElementById('quizResult').scrollIntoView({behavior:'smooth',block:'center'});
+}
+function resetQuiz(){
+  document.getElementById('quizForm').reset();
+  document.getElementById('quizResult').classList.remove('show');
+  userAnswers.quiz=null;
+}
+
+function generatePassport(){
+  updateName();
+  const a = userAnswers.quiz;
+  const profile = document.getElementById('passportProfile');
+  const strengths = document.getElementById('passportStrengths');
+  const focus = document.getElementById('passportFocus');
+  const exercises = document.getElementById('passportExercises');
+
+  if(!a){
+    profile.innerHTML='<p>Чтобы паспорт стал персональным, пройдите тест на шаге 6.</p>';
+    strengths.innerHTML='<p>После теста здесь появятся ваши сильные стороны.</p>';
+    focus.textContent='Начните с прохождения теста — это займёт меньше минуты.';
+    exercises.innerHTML='<p>Пока доступны все упражнения курса.</p>';
+    return;
+  }
+
+  let p=[];
+  if(a.q1>=1)p.push('Вы иногда или часто едите на автомате, отвлекаясь на экран или работу.');
+  if(a.q2>=1)p.push('Вам бывает сложно заметить момент насыщения.');
+  if(a.q3>=1)p.push('Еда иногда используется как способ справляться с эмоциями.');
+  if(a.q4>=1)p.push('Вы замечаете внутреннего критика после еды.');
+  if(a.q5===2)p.push('У вас высокая готовность исследовать процесс питания.');
+  if(!p.length)p.push('У вас уже достаточно спокойные и внимательные отношения с едой.');
+  profile.innerHTML='<ul>'+p.map(x=>`<li>${x}</li>`).join('')+'</ul>';
+
+  let s=[];
+  if(a.q1===0)s.push('Вы редко едите с отвлечениями.');
+  if(a.q2===0)s.push('Вы хорошо чувствуете насыщение.');
+  if(a.q3===0)s.push('Вы редко используете еду для регуляции эмоций.');
+  if(a.q4===0)s.push('У вас мало самокритики вокруг еды.');
+  if(a.q5>=1)s.push('У вас есть любопытство и готовность пробовать.');
+  if(!s.length)s.push('Вы уже сделали важный шаг — заметили свои привычки и прошли курс.');
+  strengths.innerHTML='<ul>'+s.map(x=>`<li>${x}</li>`).join('')+'</ul>';
+
+  let f='';
+  if(a.q1>=1) f='На этой неделе выберите один приём пищи в день без экрана. Не весь рацион — только один приём.';
+  else if(a.q3>=1) f='Перед перекусом задайте себе вопрос: «Какую эмоцию я сейчас чувствую?» Назовите её словами.';
+  else if(a.q2>=1) f='Проверяйте голод перед едой и насыщение на середине порции. Ориентиры: начинать на 3–4, заканчивать на 6–7.';
+  else if(a.q4>=1) f='Заменяйте фразу «я сорвался» на «что я заметил в этот раз?».';
+  else f='Поддерживайте текущую осознанность и выберите одно упражнение для закрепления.';
+  focus.textContent=f;
+
+  let e=[];
+  if(a.q1>=1)e.push('Упражнение «Один изюм» — тренировка внимания.');
+  if(a.q3>=1)e.push('Дневник с блоком эмоций до и после еды.');
+  if(a.q2>=1)e.push('Шкала голода и насыщения.');
+  if(a.q4>=1)e.push('Принцип «без осуждения».');
+  e.push('Метод ладоней для порций.');
+  e.push('Тарелка: ½ клетчатки, ¼ белка, ¼ углеводов.');
+  exercises.innerHTML='<ul>'+e.slice(0,5).map(x=>`<li>${x}</li>`).join('')+'</ul>';
+}
+
+function copyDiary(){
+  const text = `Дата:
+Приём пищи:
+Голод до еды (1–10):
+Эмоция до еды:
+Что ел(а):
+Эмоция после еды:
+Насыщение после (1–10):
+Что заметил(а):
+Что можно попробовать в следующий раз:`;
+  navigator.clipboard.writeText(text).then(()=>showToast('Шаблон скопирован'));
+}
+
+function showToast(msg){
+  const t=document.getElementById('toast');
+  t.textContent=msg;
+  t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'),2500);
+}
+function toggleSources(){
+  document.getElementById('sources').classList.toggle('show');
+  document.querySelector('.sources-toggle').classList.toggle('active');
+}
+
+function showCelebration(){
+  updateName();
+  document.getElementById('celebrationModal').classList.add('show');
+  createConfetti();
+}
+function closeCelebration(){
+  document.getElementById('celebrationModal').classList.remove('show');
+}
+function createConfetti(){
+  const colors=['#D4A373','#6B8F7A','#E9D8C5','#4A6B5A','#F4A582','#9CCB86'];
+  for(let i=0;i<120;i++){
+    const c=document.createElement('div');
+    c.className='confetti';
+    c.style.backgroundColor=colors[Math.floor(Math.random()*colors.length)];
+    c.style.left=Math.random()*100+'%';
+    c.style.top='-10px';
+    c.style.width=(Math.random()*10+5)+'px';
+    c.style.height=(Math.random()*10+5)+'px';
+    c.style.borderRadius=Math.random()>.5?'50%':'2px';
+    document.body.appendChild(c);
+    const anim=c.animate([
+      {transform:'translateY(0) rotate(0deg)',opacity:1},
+      {transform:`translateY(${window.innerHeight+120}px) rotate(${Math.random()*720}deg)`,opacity:0}
+    ],{duration:Math.random()*3000+2200,easing:'cubic-bezier(.25,.46,.45,.94)'});
+    anim.onfinish=()=>c.remove();
+  }
+}
+
+/* ===== БОНУСЫ ===== */
+function openPrintWindow(title, content){
+  const win = window.open('', '_blank');
+  if(!win){alert('Разрешите всплывающие окна для этого файла, чтобы открыть бонусный материал.');return;}
+  win.document.write(`<!DOCTYPE html><html lang="ru"><head><meta charset="UTF-8"><title>${title}</title><style>
+  *{box-sizing:border-box}body{font-family:Segoe UI,Arial,sans-serif;background:#F9F7F2;color:#2C3E34;margin:0;padding:24px;line-height:1.55}
+  .page{max-width:850px;margin:0 auto;background:white;padding:40px;border-radius:14px;box-shadow:0 8px 30px rgba(0,0,0,.08)}
+  h1{color:#4A6B5A;font-size:30px;margin:0 0 8px}h2{color:#4A6B5A;margin-top:26px}.subtitle{color:#5A6E62;font-style:italic;margin-bottom:24px}
+  .print{position:fixed;right:20px;top:20px;background:#4A6B5A;color:white;border:0;border-radius:30px;padding:12px 22px;font-weight:700;cursor:pointer}
+  .hint{position:fixed;right:20px;top:70px;background:#FDF8F3;border:1px solid #E9D8C5;border-radius:10px;padding:10px 14px;font-size:13px;color:#5A6E62;max-width:270px}
+  table{width:100%;border-collapse:collapse;margin:16px 0}th{background:#4A6B5A;color:white;text-align:left;padding:10px}td{border-bottom:1px solid #E5DED2;padding:10px;vertical-align:top}
+  tr:nth-child(even) td{background:#F8F6F2}.box{background:#F0F5F2;border-left:4px solid #6B8F7A;padding:14px 16px;border-radius:0 10px 10px 0;margin:18px 0}
+  .scale-row{display:flex;border-bottom:1px solid #eee;min-height:44px}.num{width:42px;color:white;font-weight:800;display:flex;align-items:center;justify-content:center}.txt{padding:8px 12px}.title{font-weight:700}.desc{font-size:12px;color:#5A6E62}
+  .deep{background:#A65B45}.red{background:#C97B63}.orange{background:#D4A373}.green{background:#6B8F7A}.yellow{background:#C9A84C}
+  .day{border:2px solid #E5DED2;border-radius:12px;padding:15px;margin:14px 0;page-break-inside:avoid}.line{display:inline-block;border-bottom:1px solid #CFC6BA;min-width:260px;height:18px;vertical-align:bottom}.long{min-width:430px}
+  .footer{margin-top:30px;padding-top:16px;border-top:1px dashed #D4C9BC;font-size:12px;color:#5A6E62;text-align:center}
+  @media print{body{background:white;padding:0}.page{box-shadow:none;border-radius:0;max-width:100%;padding:20px}.print,.hint{display:none}}
+  </style></head><body><button class="print" onclick="window.print()">🖨️ Печать / Сохранить PDF</button><div class="hint">В диалоге печати выберите «Сохранить как PDF».</div><div class="page">${content}</div></body></html>`);
+  win.document.close();
+}
+
+function generateBonusScale(){
+  const rows = hungerData.map(r=>{
+    const color = r[4].includes('deepred')?'deep':r[4].includes('red')?'red':r[4].includes('orange')?'orange':r[4].includes('yellow')?'yellow':'green';
+    const mark = r[3]==='start'?'начинать':r[3]==='stop'?'заканчивать':r[3]==='avoid'?'избегать':'';
+    return `<div class="scale-row"><div class="num ${color}">${r[0]}</div><div class="txt"><div class="title">${r[1]} ${mark?`<span style="font-size:11px;color:#4A6B5A">(${mark})</span>`:''}</div><div class="desc">${r[2]}</div></div></div>`;
+  }).join('');
+  openPrintWindow('Шкала голода и сытости', `
+    <h1>📊 Шкала голода и сытости</h1>
+    <p class="subtitle">Распечатайте и повесьте на холодильник или сохраните в телефон.</p>
+    <div style="border:1px solid #E5DED2;border-radius:12px;overflow:hidden">${rows}</div>
+    <div class="box"><strong>Как пользоваться:</strong><br>Перед едой спросите: «На каком уровне я сейчас?» На середине порции проверьте: «Где я сейчас?» Цель — не идеальные цифры, а замечание.</div>
+    <div class="footer">Мини-курс по осознанному питанию · Бонусный материал</div>
+  `);
+}
+function generateBonusHands(){
+  openPrintWindow('Метод ладоней', `
+    <h1>🖐️ Метод ладоней</h1>
+    <p class="subtitle">Шпаргалка по порциям без весов и таблиц калорий.</p>
+    <table>
+      <tr><th>Группа</th><th>Мера</th><th>Пояснение</th></tr>
+      <tr><td><strong>Белок</strong><br>мясо, рыба, птица, творог</td><td>1 ладонь без пальцев</td><td>Размер и толщина вашей ладони.</td></tr>
+      <tr><td><strong>Углеводы</strong><br>крупы, картофель, рис</td><td>1 пригоршня</td><td>Ладонь «лодочкой». Для сухой крупы примерно 40–60 г.</td></tr>
+      <tr><td><strong>Жиры</strong><br>масло, орехи, авокадо</td><td>1 большой палец</td><td>Примерно 1 ст. л. масла или небольшая горсть орехов.</td></tr>
+      <tr><td><strong>Клетчатка</strong><br>овощи, зелень</td><td>2 пригоршни</td><td>Минимальный ориентир для половины тарелки.</td></tr>
+    </table>
+    <div class="box">
+      <strong>Что такое пригоршня?</strong><br>
+      Пригоршня — это ваша ладонь, сложенная «лодочкой», как будто вы хотите зачерпнуть воду. То, что помещается в такую ладонь, — одна пригоршня.
+      Для круп удобнее ориентироваться так: одна пригоршня сухой крупы — примерно 40–60 г, в зависимости от размера ладони и продукта. После варки объём увеличивается.
+    </div>
+    <h2>Пример обеда</h2>
+    <ul>
+      <li>Белок: курица или рыба с ладонь.</li>
+      <li>Углеводы: гречка — одна пригоршня.</li>
+      <li>Клетчатка: салат — две пригоршни.</li>
+      <li>Жиры: масло — объём примерно с большой палец.</li>
+    </ul>
+    <div class="box"><strong>Важно:</strong> метод ладоней — ориентир, а не точный расчёт. При заболеваниях, спорте, беременности или РПП порции могут требовать индивидуальной коррекции.</div>
+    <div class="footer">Мини-курс по осознанному питанию · Бонусный материал</div>
+  `);
+}
+function generateBonusTracker(){
+  const days=['Понедельник','Вторник','Среда','Четверг','Пятница','Суббота','Воскресенье'];
+  const content = days.map((d,i)=>`
+    <div class="day">
+      <h2 style="margin-top:0">День ${i+1}: ${d}</h2>
+      <p>Дата: <span class="line"></span></p>
+      <p>Приём пищи: <span class="line"></span></p>
+      <p>Голод до еды (1–10): <span class="line"></span></p>
+      <p>Эмоция до еды: <span class="line long"></span></p>
+      <p>Что ел(а): <span class="line long"></span></p>
+      <p>Эмоция после еды: <span class="line long"></span></p>
+      <p>Насыщение после (1–10): <span class="line"></span></p>
+      <p>Что заметил(а): <span class="line long"></span></p>
+    </div>`).join('');
+  openPrintWindow('Трекер питания и эмоций', `
+    <h1>📓 Трекер эмоций и питания на 7 дней</h1>
+    <p class="subtitle">Заполняйте без оценок. Это не экзамен, а способ увидеть паттерны.</p>
+    <div class="box">Выберите 1–2 приёма пищи в день. Особенно полезно отмечать перекусы, которые произошли «не из-за голода».</div>
+    ${content}
+    <div class="box"><strong>В конце недели спросите себя:</strong><br>• В какие моменты я ем не из-за голода?<br>• Какие эмоции чаще всего запускают переедание?<br>• Что я могу попробовать изменить на следующей неделе?</div>
+    <div class="footer">Мини-курс по осознанному питанию · Бонусный материал</div>
+  `);
+}
+
+/* ===== СОХРАНЕНИЕ ПАСПОРТА КАК PDF ===== */
+function generateBonusPassport(){
+  const a = userAnswers.quiz;
+  const name = firstName || 'участник';
+  const today = new Date().toLocaleDateString('ru-RU',{day:'numeric',month:'long',year:'numeric'});
+
+  let profile='', strengths='', focus='', exercises='';
+  if(a){
+    let p=[];
+    if(a.q1>=1)p.push('Вы иногда или часто едите на автомате, отвлекаясь на экран или работу.');
+    if(a.q2>=1)p.push('Вам бывает сложно заметить момент насыщения.');
+    if(a.q3>=1)p.push('Еда иногда используется как способ справляться с эмоциями.');
+    if(a.q4>=1)p.push('Вы замечаете внутреннего критика после еды.');
+    if(a.q5===2)p.push('У вас высокая готовность исследовать процесс питания.');
+    if(!p.length)p.push('У вас уже достаточно спокойные и внимательные отношения с едой.');
+    profile='<ul>'+p.map(x=>`<li>${x}</li>`).join('')+'</ul>';
+
+    let s=[];
+    if(a.q1===0)s.push('Вы редко едите с отвлечениями.');
+    if(a.q2===0)s.push('Вы хорошо чувствуете насыщение.');
+    if(a.q3===0)s.push('Вы редко используете еду для регуляции эмоций.');
+    if(a.q4===0)s.push('У вас мало самокритики вокруг еды.');
+    if(a.q5>=1)s.push('У вас есть любопытство и готовность пробовать.');
+    if(!s.length)s.push('Вы уже сделали важный шаг — заметили свои привычки и прошли курс.');
+    strengths='<ul>'+s.map(x=>`<li>${x}</li>`).join('')+'</ul>';
+
+    if(a.q1>=1) focus='На этой неделе выберите один приём пищи в день без экрана.';
+    else if(a.q3>=1) focus='Перед перекусом спросите себя: «Какую эмоцию я сейчас чувствую?» Назовите её словами.';
+    else if(a.q2>=1) focus='Проверяйте голод перед едой и насыщение на середине порции. Ориентиры: начинать на 3–4, заканчивать на 6–7.';
+    else if(a.q4>=1) focus='Заменяйте фразу «я сорвался» на «что я заметил в этот раз?».';
+    else focus='Поддерживайте текущую осознанность и выберите одно упражнение для закрепления.';
+
+    let e=[];
+    if(a.q1>=1)e.push('Упражнение «Один изюм» — тренировка внимания.');
+    if(a.q3>=1)e.push('Дневник с блоком эмоций до и после еды.');
+    if(a.q2>=1)e.push('Шкала голода и насыщения.');
+    if(a.q4>=1)e.push('Принцип «без осуждения».');
+    e.push('Метод ладоней для порций.');
+    e.push('Тарелка: ½ клетчатки, ¼ белка, ¼ углеводов.');
+    exercises='<ul>'+e.slice(0,5).map(x=>`<li>${x}</li>`).join('')+'</ul>';
+  } else {
+    profile='<p>Тест не пройден — пройдите его, чтобы получить персональные рекомендации.</p>';
+    strengths='<p>После теста здесь появятся ваши сильные стороны.</p>';
+    focus='Пройдите тест на шаге 6.';
+    exercises='<p>Пока доступны все упражнения курса.</p>';
+  }
+
+  openPrintWindow('Персональный паспорт — '+name,`
+    <div style="text-align:center;border-bottom:2px dashed #D4A373;padding-bottom:20px;margin-bottom:25px">
+      <div style="font-size:48px;margin-bottom:10px">📋</div>
+      <h1 style="margin-bottom:5px">Персональный паспорт осознанного питания</h1>
+      <p style="font-size:20px;color:#4A6B5A;font-weight:700;margin:0">${name}</p>
+      <p style="color:#5A6E62;font-size:14px;margin-top:8px">Составлен ${today}</p>
+    </div>
+    <h2>🎯 Ваш профиль</h2>
+    <div class="box">${profile}</div>
+    <h2>💪 Ваши сильные стороны</h2>
+    <div class="box">${strengths}</div>
+    <h2>🌱 Главная точка роста на неделю</h2>
+    <div class="box" style="font-weight:700;font-size:16px">${focus}</div>
+    <h2>🧭 Ваши упражнения из курса</h2>
+    <div class="box">${exercises}</div>
+    <div class="footer">Мини-курс по осознанному питанию · Персональный документ</div>
+  `);
+}
+
+/* ===== СЕРТИФИКАТ ===== */
+function generateCertificate(){
+  // В сертификате используем Имя и Фамилию вместе. Номер убран.
+  const displayName = (firstName && lastName) ? `${firstName} ${lastName}` : (firstName || 'участник');
+  const today = new Date().toLocaleDateString('ru-RU',{day:'numeric',month:'long',year:'numeric'});
+
+  const win = window.open('', '_blank');
+  if(!win){alert('Разрешите всплывающие окна, чтобы открыть сертификат.');return;}
+  win.document.write(`<!DOCTYPE html><html lang="ru"><head><meta charset="UTF-8"><title>Сертификат — ${displayName}</title>
+  <style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:Georgia,serif;background:#F9F7F2;padding:20px;display:flex;justify-content:center;align-items:center;min-height:100vh}
+  .cert{
+    width:800px;max-width:100%;
+    background:white;
+    padding:60px 50px;
+    border:3px double #4A6B5A;
+    border-radius:20px;
+    text-align:center;
+    position:relative;
+    box-shadow:0 20px 60px rgba(0,0,0,.15);
+  }
+  .cert:before,.cert:after{
+    content:'';position:absolute;width:80px;height:80px;
+    border:3px solid #D4A373;
+  }
+  .cert:before{top:20px;left:20px;border-right:0;border-bottom:0;border-radius:10px 0 0 0}
+  .cert:after{bottom:20px;right:20px;border-left:0;border-top:0;border-radius:0 0 10px 0}
+  .cert-badge{font-size:64px;margin-bottom:15px}
+  .cert-label{font-size:14px;letter-spacing:4px;color:#6B8F7A;text-transform:uppercase;margin-bottom:10px}
+  .cert-title{font-size:34px;color:#4A6B5A;font-weight:700;margin-bottom:25px;line-height:1.2}
+  .cert-intro{color:#5A6E62;font-size:15px;margin-bottom:10px}
+  .cert-name{
+    font-size:42px;
+    color:#D4A373;
+    font-weight:700;
+    margin:20px 0;
+    font-style:italic;
+    border-bottom:2px solid #E9D8C5;
+    display:inline-block;
+    padding:0 30px 10px;
+    word-break:break-word;
+  }
+  .cert-text{font-size:16px;color:#2C3E34;line-height:1.7;max-width:600px;margin:25px auto}
+  .cert-skills{text-align:left;max-width:500px;margin:25px auto;font-size:14px;line-height:1.8;color:#2C3E34}
+  .cert-skills li{margin-bottom:6px;padding-left:25px;position:relative;list-style:none}
+  .cert-skills li:before{content:'✓';position:absolute;left:0;color:#6B8F7A;font-weight:900}
+  .cert-footer{margin-top:30px;padding-top:20px;border-top:1px dashed #D4C9BC;font-size:13px;color:#5A6E62}
+  .cert-print{position:fixed;right:20px;top:20px;background:#4A6B5A;color:white;border:0;border-radius:30px;padding:12px 22px;font-weight:700;cursor:pointer;font-family:Segoe UI,sans-serif;z-index:100}
+  .cert-hint{position:fixed;right:20px;top:70px;background:#FDF8F3;border:1px solid #E9D8C5;border-radius:10px;padding:10px 14px;font-size:13px;color:#5A6E62;max-width:270px;z-index:100}
+  @media print{body{background:white;padding:0}.cert{box-shadow:none;max-width:100%}.cert-print,.cert-hint{display:none}}
+  </style></head><body>
+  <button class="cert-print" onclick="window.print()">🖨️ Печать / Сохранить PDF</button>
+  <div class="cert-hint">В диалоге печати выберите «Сохранить как PDF».</div>
+  <div class="cert">
+    <div class="cert-badge">🎓</div>
+    <div class="cert-label">Сертификат о прохождении</div>
+    <div class="cert-title">Мини-курс<br>«Осознанное питание»</div>
+    <p class="cert-intro">настоящим подтверждается, что</p>
+    <div class="cert-name">${displayName}</div>
+    <p class="cert-text">успешно прошёл(а) полный курс по осознанному питанию и освоил(а) практические инструменты работы с пищевым поведением.</p>
+    <ul class="cert-skills">
+      <li>10 принципов интуитивного питания</li>
+      <li>Метод ладоней для определения порций</li>
+      <li>Принцип здоровой тарелки</li>
+      <li>Шкала голода и насыщения</li>
+      <li>Работа с эмоциональным перееданием</li>
+      <li>Дневник осознанного питания</li>
+    </ul>
+    <div class="cert-footer">
+      Дата прохождения: <strong>${today}</strong>
+    </div>
+  </div>
+  </body></html>`);
+  win.document.close();
+}
+</script>
+
+</body>
+</html>
